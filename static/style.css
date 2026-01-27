@@ -225,7 +225,7 @@ body {
         padding: 18px 0;
         color: var(--preto);
         font-family: var(--fonte-texto);
-        font-size: 1.3rem;
+        font-size: 1.6rem;
         font-weight: 500;
         text-decoration: none;
         transition: all 0.3s ease;
@@ -345,7 +345,7 @@ body {
 
 .hero-content h1 {
     font-family: var(--fonte-titulo);
-    font-size: 3.4rem;
+    font-size: 4.2rem;
     font-weight: 700;
     color: var(--branco);
     line-height: 1.5;
@@ -363,10 +363,15 @@ body {
 
 /* LINHA */
 .linha-hero {
-    width: 60%;
-    height: 4px;
-    background-color: var(--verde-principal);
-    margin: 24px 0;
+    width: 100%;
+    height: 3px;
+    margin: 24px auto 40px;
+    background: linear-gradient(90deg,
+            transparent,
+            var(--verde-secundario),
+            transparent);
+    border: none;
+    border-radius: 4px;
 }
 
 /* ================= HERO BUTTON ================= */
@@ -984,6 +989,195 @@ body {
     font-weight: bold;
 }
 
+/* ================= SEÇÃO DE DIFERENCIAL ================= */
+
+.diferenciais-section {
+    padding: 80px 6%;
+    background:
+        linear-gradient(180deg, #0a0a0a, #0f0f0f),
+        radial-gradient(circle at 50% 30%,
+            rgba(76, 175, 80, 0.15),
+            transparent 60%);
+    background-blend-mode: screen;
+    text-align: center;
+}
+
+.diferenciais-header h2 {
+    color: var(--branco);
+    font-family: var(--fonte-titulo);
+    font-size: 3em;
+}
+
+.diferenciais-header span {
+    color: var(--span);
+}
+
+.diferenciais-header p {
+    color: var(--cinza-claro);
+    font-size: 1.6rem;
+    margin-top: 12px;
+    margin-bottom: 56px;
+}
+
+.linha-diferenciais {
+    width: 70%;
+    height: 3px;
+    margin: 24px auto 40px;
+    background: linear-gradient(90deg,
+            transparent,
+            var(--verde-secundario),
+            transparent);
+    border: none;
+    border-radius: 4px;
+}
+
+/* ===== DIFERENCIAIS - LAYOUT ===== */
+.diferencial-layout {
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    gap: 10px;
+    align-items: center;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+
+/* ===== ACCORDION ===== */
+.accordion {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 98%;
+}
+
+/* ITEM */
+.accordion-item {
+    width: 100%;
+    gap: 10px;
+    background: #ffffff;
+    border-radius: 18px;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    overflow: hidden;
+    transition: box-shadow .3s ease, transform .3s ease;
+}
+
+.accordion-item:hover {
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
+}
+
+/* HEADER */
+.accordion-header {
+    width: 100%;
+    background: transparent;
+    border: none;
+    padding: 22px 26px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #1c1c1c;
+    cursor: pointer;
+    text-align: left;
+}
+
+/* ÍCONE */
+.accordion-header .icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: #f3f5f4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.4rem;
+    font-weight: 400;
+    transition: transform .3s ease, background .3s ease;
+}
+
+/* ITEM ATIVO */
+.accordion-item.active .accordion-header .icon {
+    background: var(--verde-principal);
+    color: #fff;
+    transform: rotate(180deg);
+}
+
+/* CONTENT */
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height .4s ease, opacity .3s ease;
+    opacity: 0;
+}
+
+.accordion-item.active .accordion-content {
+    opacity: 1;
+}
+
+/* TEXTO */
+.accordion-content p {
+    padding: 0 26px 24px 26px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: .95rem;
+    line-height: 1.6;
+    color: #5f5f5f;
+}
+
+.diferencial-image {
+    width: 100%;
+    height: 570px;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.18);
+    position: relative;
+}
+
+.diferencial-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity .4s ease, transform .6s ease;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*
 =======================
 RESPONSIVIDADE DO SITE
@@ -1023,6 +1217,15 @@ RESPONSIVIDADE DO SITE
     .services-swiper .swiper-button-next {
         right: -140px;
     }
+
+    .diferencial-layout {
+        max-width: 1000px;
+        gap: 24px;
+    }
+
+    .diferencial-image {
+        height: 520px;
+    }
 }
 
 @media (max-width: 992px) {
@@ -1041,15 +1244,17 @@ RESPONSIVIDADE DO SITE
     }
 
     .hero-content h1 {
-        font-size: 2.6rem;
+        font-size: 3rem;
     }
 
     .hero-content p {
-        font-size: 1.3rem;
+        font-size: 1.8rem;
     }
 
     .linha-hero {
-        width: 40%;
+        width: 70%;
+        margin-left: 0;
+        margin-right: auto;
     }
 
     .hero-section {
@@ -1093,8 +1298,66 @@ RESPONSIVIDADE DO SITE
         font-size: 1.4rem;
     }
 
+    .services-header span {
+        font-size: 2.6rem;
+    }
+
     .services-swiper {
         height: 460px;
+    }
+
+    .diferenciais-layout {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .diferenciais-slider {
+        display: none;
+    }
+
+    .diferencial-layout {
+        grid-template-columns: 1fr 1fr;
+        gap: 28px;
+    }
+
+    .accordion {
+        width: 100%;
+    }
+
+    .diferencial-image {
+        height: 480px;
+    }
+
+    .diferenciais-header h2 {
+        font-size: 2.6em;
+    }
+
+    .diferenciais-header p {
+        font-size: 1.4rem;
+    }
+
+
+    .diferenciais-slider {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .diferencial-image {
+        width: 100%;
+        max-width: 520px;
+        height: auto;
+        /* 🔑 MUITO IMPORTANTE */
+        aspect-ratio: 3 / 4;
+        /* 🔑 mantém proporção */
+        margin: 0 auto;
+    }
+
+    .diferencial-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
     }
 }
 
@@ -1108,13 +1371,14 @@ RESPONSIVIDADE DO SITE
     }
 
     .hero-content h1 {
-        font-size: 2.2rem;
+        margin-top: 30px;
+        font-size: 3.9rem;
         line-height: 1.35;
     }
 
     .hero-content p {
         max-width: 90%;
-        font-size: 1.5rem !important;
+        font-size: 1.8rem !important;
         line-height: 2;
     }
 
@@ -1191,6 +1455,7 @@ RESPONSIVIDADE DO SITE
         border-radius: 999px;
         background: var(--verde-secundario);
         border: none;
+        color: rgb(0, 0, 0);
         font-family: var(--fonte-titulo);
         font-weight: 600;
         cursor: pointer;
@@ -1216,12 +1481,40 @@ RESPONSIVIDADE DO SITE
     }
 
     .services-swiper .swiper-slide {
-        max-width: 280px
+        max-width: 290px
     }
 
     .services-swiper .swiper-button-prev,
     .services-swiper .swiper-button-next {
         display: none;
+    }
+
+    .diferencial-layout {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .accordion {
+        width: 100%;
+    }
+
+    .diferencial-image {
+        display: none;
+    }
+
+    .diferencial-image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+    .diferenciais-header h2 {
+        font-size: 2.3em;
+    }
+
+    .linha-diferenciais {
+        width: 90%;
     }
 }
 
@@ -1320,6 +1613,7 @@ RESPONSIVIDADE DO SITE
     }
 
     .services-swiper {
+        max-width: 290px;
         height: auto;
     }
 
@@ -1338,6 +1632,33 @@ RESPONSIVIDADE DO SITE
 
     .modal-title {
         font-size: 1.6rem;
+    }
+
+    .diferenciais-section {
+        padding: 64px 5%;
+    }
+
+    .diferenciais-header h2 {
+        font-size: 2em;
+    }
+
+    .diferenciais-header p {
+        font-size: 1.2rem;
+        margin-bottom: 40px;
+    }
+
+    .accordion-header {
+        padding: 18px 20px;
+        font-size: 1rem;
+    }
+
+    .accordion-content p {
+        font-size: .9rem;
+        padding: 0 20px 20px;
+    }
+
+    .diferencial-image {
+        display: none;
     }
 }
 
@@ -1380,7 +1701,32 @@ RESPONSIVIDADE DO SITE
         font-size: 2rem;
     }
 
+    
+    .services-swiper {
+        max-width: 220px;
+        height: auto;
+    }
+
     .button-mais {
         padding: 14px 32px;
+    }
+
+    .diferenciais-header h2 {
+        font-size: 1.8em;
+    }
+
+    .accordion-header {
+        font-size: .95rem;
+        gap: 12px;
+    }
+
+    .accordion-header .icon {
+        width: 30px;
+        height: 30px;
+        font-size: 1.2rem;
+    }
+
+    .diferencial-image {
+        display: none;
     }
 }

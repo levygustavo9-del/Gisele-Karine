@@ -211,3 +211,51 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 });
+
+// ====== ACCORDION ======
+
+const accordionItems = document.querySelectorAll('.accordion-item');
+const imageContainer = document.querySelector('.diferencial-image img');
+
+/* MAPA DE IMAGENS POR ITEM (ordem do HTML) */
+const images = [
+    'static/imgs/diferencial-1.jpg',
+    'static/imgs/diferencial-2.jpg',
+    'static/imgs/diferencial-3.jpg',
+    'static/imgs/diferencial-4.jpg',
+    'static/imgs/diferencial-5.jpg',
+    'static/imgs/diferencial-6.jpg'
+];
+
+accordionItems.forEach((item, index) => {
+    const header = item.querySelector('.accordion-header');
+    const content = item.querySelector('.accordion-content');
+
+    header.addEventListener('click', () => {
+        const isOpen = item.classList.contains('active');
+
+        /* Fecha todos */
+        accordionItems.forEach(i => {
+            i.classList.remove('active');
+            i.querySelector('.accordion-content').style.maxHeight = null;
+        });
+
+        if (!isOpen) {
+            /* Abre o atual */
+            item.classList.add('active');
+            content.style.maxHeight = content.scrollHeight + 'px';
+
+            /* Transição da imagem */
+            imageContainer.style.opacity = '0';
+            imageContainer.style.transform = 'scale(1.05)';
+
+            setTimeout(() => {
+                imageContainer.src = images[index];
+                imageContainer.onload = () => {
+                    imageContainer.style.opacity = '1';
+                    imageContainer.style.transform = 'scale(1)';
+                };
+            }, 250);
+        }
+    });
+});

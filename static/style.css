@@ -1215,6 +1215,7 @@ body {
     color: #555;
     font-size: 0.9em;
 }
+
 /* ================= LOCALIZAÇÃO PREMIUM ================= */
 
 .location-section {
@@ -1570,7 +1571,7 @@ RESPONSIVIDADE DO SITE
         font-size: 1.5em;
     }
 
-      .location-content {
+    .location-content {
         grid-template-columns: 1fr 1fr;
         gap: 56px;
     }
@@ -1588,7 +1589,7 @@ RESPONSIVIDADE DO SITE
         border-radius: 28px;
     }
 
-     .footer-container {
+    .footer-container {
         grid-template-columns: 1fr 1fr 1fr;
         gap: 40px;
     }
@@ -1606,7 +1607,7 @@ RESPONSIVIDADE DO SITE
         text-align: center;
     }
 
-    
+
 }
 
 @media (max-width: 992px) {
@@ -1764,7 +1765,7 @@ RESPONSIVIDADE DO SITE
         font-size: 0.95em;
     }
 
-     .location-section {
+    .location-section {
         padding: 100px 6%;
     }
 
@@ -1789,7 +1790,7 @@ RESPONSIVIDADE DO SITE
         min-height: 380px;
     }
 
-     .footer-container {
+    .footer-container {
         grid-template-columns: 1fr 1fr;
         gap: 56px;
         text-align: left;
@@ -1813,7 +1814,7 @@ RESPONSIVIDADE DO SITE
         margin-bottom: 16px;
     }
 
-     .footer-links {
+    .footer-links {
         display: none;
     }
 }
@@ -2020,7 +2021,7 @@ RESPONSIVIDADE DO SITE
         font-size: 0.85em;
     }
 
-     .location-section {
+    .location-section {
         padding: 90px 7%;
     }
 
@@ -2061,7 +2062,7 @@ RESPONSIVIDADE DO SITE
         border-radius: 28px;
     }
 
-        .footer-container {
+    .footer-container {
         grid-template-columns: 1fr;
         gap: 48px;
         padding: 72px 8%;
@@ -2087,7 +2088,7 @@ RESPONSIVIDADE DO SITE
         margin: 0 auto 12px;
     }
 
-     .footer-links {
+    .footer-links {
         display: none;
     }
 }
@@ -2275,7 +2276,7 @@ RESPONSIVIDADE DO SITE
         font-size: 0.75em;
     }
 
-     .location-section {
+    .location-section {
         padding: 80px 8%;
     }
 
@@ -2320,9 +2321,9 @@ RESPONSIVIDADE DO SITE
         border-radius: 24px;
     }
 
-     .footer-container {
+    .footer-container {
         padding: 64px 9%;
-        gap: 40px;
+        gap: 22px;
     }
 
     .footer-logo img {
@@ -2342,7 +2343,7 @@ RESPONSIVIDADE DO SITE
         font-size: 0.95em;
     }
 
-     .footer-links {
+    .footer-links {
         display: none;
     }
 
@@ -2455,9 +2456,9 @@ RESPONSIVIDADE DO SITE
         border-radius: 22px;
     }
 
-      .footer-container {
-        padding: 56px 7%;
-        gap: 36px;
+    .footer-container {
+        padding: 0px 7%;
+        gap: 23px;
     }
 
     .footer-logo span {
@@ -2466,15 +2467,15 @@ RESPONSIVIDADE DO SITE
 
     .footer-column p,
     .footer-column a {
-        font-size: 0.9em;
+        font-size: 0.6em;
     }
 
-     .footer-links {
+    .footer-links {
         display: none;
     }
 
     .footer-social a {
-        width: 40px;
-        height: 40px;
+        width: 30px;
+        height: 30px;
     }
 }

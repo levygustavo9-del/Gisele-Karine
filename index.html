@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="static/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
         rel="stylesheet">
 
@@ -19,7 +21,7 @@
 </head>
 
 <body>
-    <header class="header">
+    <header class="header" id="home">
         <div class="header-content">
             <div class="menu-toggle">
                 <span></span>
@@ -37,7 +39,7 @@
                     <li><a href="#">Início</a></li>
                     <li><a href="#">Serviços</a></li>
                     <li><a href="#">Blog</a></li>
-                    <li><a href="#">Depoimentos</a></li>
+                    <li><a href="#">Missão</a></li>
                     <li><a href="#">Sobre mim</a></li>
                 </ul>
 
@@ -48,7 +50,7 @@
             </nav>
 
             <div class="header-cta">
-                <a href="#" class="cta-button">entrar em contato</a>
+                <a href="#" class="cta-button" target="_blank">entrar em contato</a>
             </div>
         </div>
     </header>
@@ -66,7 +68,7 @@
             <hr class="linha-hero">
             <br>
 
-            <a href="" class="hero-button">Marcar Cosulta</a>
+            <a href="" class="hero-button" target="_blank">Marcar Cosulta</a>
         </div>
 
     </section>
@@ -146,7 +148,7 @@
         </button>
 
 
-        <div class="cta-quem"><a href="" class="button-quem">MARCAR CONSULTA AGORA!</a></div>
+        <div class="cta-quem"><a href="" target="_blank" class="button-quem">MARCAR CONSULTA AGORA!</a></div>
 
     </section>
 
@@ -216,7 +218,7 @@
         </div>
 
         <div class="timeline-cta">
-            <a href="#contato" class="button-quem">
+            <a href="#contato" target="_blank" class="button-quem">
                 Quero iniciar meu acompanhamento!
             </a>
         </div>
@@ -272,7 +274,51 @@
                         <a href="" class="button-mais">Saiba mais</a>
                     </div>
                 </div>
+
+                <!-- CARD 1 -->
+                <div class="swiper-slide">
+                    <div class="service-card">
+                        <img src="static/imgs/nutrição.jpg" alt="">
+                        <h3>Nutrição Esportiva</h3>
+                        <p>Planejamento alimentar focado em performance e recuperação.</p>
+                        <a href="" class="button-mais">Saiba mais</a>
+                    </div>
+                </div>
+
+                <!-- CARD 2 -->
+                <div class="swiper-slide">
+                    <div class="service-card">
+                        <img src="static/imgs/emagrecimento.jpg" alt="">
+                        <h3>Emagrecimento</h3>
+                        <p>Estratégias seguras para redução de gordura e saúde.</p>
+                        <a href="" class="button-mais">Saiba mais</a>
+                    </div>
+                </div>
+
+                <!-- CARD 3 -->
+                <div class="swiper-slide">
+                    <div class="service-card">
+                        <img src="static/imgs/avaliação.jpg" alt="">
+                        <h3>Avaliação Corporal</h3>
+                        <p>Análise completa para acompanhamento de resultados.</p>
+                        <a href="" class="button-mais">Saiba mais</a>
+                    </div>
+                </div>
+
+                <!-- CARD 4 -->
+                <div class="swiper-slide">
+                    <div class="service-card">
+                        <img src="static/imgs/performance.jpg" alt="">
+                        <h3>Performance</h3>
+                        <p>Protocolos nutricionais para atletas e praticantes.</p>
+                        <a href="" class="button-mais">Saiba mais</a>
+                    </div>
+                </div>
+
+
             </div>
+
+
 
             <!-- Pagination -->
             <div class="swiper-pagination"></div>
@@ -294,7 +340,7 @@
 
             <ul class="modal-benefits"></ul>
 
-            <a href="#contato" class="button-mais modal-cta">
+            <a href="#contato" target="_blank" class="button-mais modal-cta">
                 Entrar em contato
             </a>
 
@@ -396,6 +442,125 @@
 
         </div>
     </section>
+
+    <!-- ====== CTA FORTE ======-->
+    <section class="cta-strong-section">
+        <div class="cta-strong-content">
+            <h2>Pronto para <span>transformar sua saúde</span> <br>e alcançar seus objetivos?</h2>
+            <p>Agende sua consulta agora e dê o primeiro passo rumo à sua melhor versão!</p>
+            <a href="#contato" class="cta-strong-button animated-border" target="_blank">Quero minha valiação!</a>
+
+            <small>Atendimento humanizado • Planos individualizados</small>
+
+        </div>
+    </section>
+
+    <!-- ====== LOCALIZAÇÃO ======-->
+    <section class="location-section" id="contato">
+        <div class="location-container">
+
+            <!-- CABEÇALHO -->
+            <div class="location-header">
+                <h2>
+                    A sua mudança de vida
+                    <span>está mais perto</span>
+                    do que você imagina
+                </h2>
+                <p>Atendimento presencial e online para sua conveniência.</p>
+                <div class="linha-localizacao"></div>
+            </div>
+
+            <!-- CONTEÚDO -->
+            <div class="location-content">
+
+                <!-- CARD INFORMAÇÕES -->
+                <div class="location-card">
+                    <h3>Nosso endereço</h3>
+
+                    <p>
+                        Av. Teotônio Brandão Vilela, 3261 - Lot. Vila Rica, Rio Largo - AL, <br>
+                        Lot. Vila Rica – Rio Largo / Alagoas<br>
+                        CEP 57100-000
+                    </p>
+
+                    <p class="location-hours">
+                        <strong>Horário de atendimento</strong><br>
+                        Segunda a Sexta<br>
+                        08h às 18h
+                    </p>
+
+                    <a href="https://maps.app.goo.gl/3obkzX9PVEHEWbzB6" target="_blank" class="location-button">
+                        Ver no Google Maps
+                    </a>
+                </div>
+
+                <!-- MAPA -->
+                <div class="location-map">
+                    <iframe
+                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3935.3589061506455!2d-35.83536422513564!3d-9.477478090602855!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x701351f89665c81%3A0x4b027c7340d300b4!2sGK%20SPORT%20FITNESS!5e0!3m2!1spt-BR!2sbr!4v1769621964215!5m2!1spt-BR!2sbr"
+                        loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ====== FOOTER ======-->
+    <footer class="footer">
+        <div class="footer-container">
+
+            <!-- LOGO / MARCA -->
+            <div class="footer-brand">
+                <div class="footer-logo">
+                    <img src="/static/imgs/logo-pt.png" alt="Nutricionista">
+                    <span>Nutricionista</span>
+                </div>
+            </div>
+
+            <!-- LINKS RÁPIDOS -->
+            <div class="footer-column footer-links">
+                <h4>Links Rápidos</h4>
+                <ul>
+                    <li><a href="#home">Início</a></li>
+                    <li><a href="#sobre">Sobre Mim</a></li>
+                    <li><a href="#blog">Blog</a></li>
+                    <li><a href="#receitas">Receitas</a></li>
+                </ul>
+            </div>
+
+            <!-- SERVIÇOS -->
+            <div class="footer-column">
+                <h4>Serviços</h4>
+                <ul>
+                    <li><a href="#">Nutrição Esportiva</a></li>
+                    <li><a href="#">Emagrecimento</a></li>
+                    <li><a href="#">Avaliação Corporal</a></li>
+                    <li><a href="#">Performance</a></li>
+                </ul>
+            </div>
+
+            <!-- CONTATO -->
+            <div class="footer-column">
+                <h4>Contato</h4>
+                <p>Tel: (82) 8213-9203</p>
+                <p>Email: contato@nutricionista.com</p>
+                <p>Av. Teotônio Brandão Vilela, 3261 - Lot. Vila Rica, Rio Largo - AL</p>
+
+                <div class="footer-social">
+                    <a href="#" aria-label="instagram"><img src="static/icones/instagram.png" alt=""></a>
+                    <a href="#" aria-label="whatsapp"><img src="static/icones/whatsapp.png" alt=""></a>
+                    <a href="#" aria-label="tik-tok"><img src="static/icones/tik-tok.png" alt=""></a>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- COPYRIGHT -->
+        <div class="footer-bottom">
+            © 2026 — <strong>Nutricionista</strong> | Todos os direitos reservados.
+        </div>
+    </footer>
 
 
 

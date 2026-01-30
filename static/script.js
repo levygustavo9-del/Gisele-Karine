@@ -108,24 +108,24 @@ const btn = document.querySelector('.ver-todos-btn');
 const grid = document.querySelector('.cards-grid');
 const section = document.getElementById('para-quem');
 
-btn.addEventListener('click', () => {
-    const expandido = grid.classList.toggle('expandido');
+if (btn && grid && section) {
+    btn.addEventListener('click', () => {
+        const expandido = grid.classList.toggle('expandido');
 
-    btn.textContent = expandido
-        ? 'Mostrar menos'
-        : 'Ver todos os perfis';
+        btn.textContent = expandido
+            ? 'Mostrar menos'
+            : 'Ver todos os perfis';
 
-    // ao recolher, volta para o topo da section
-    if (!expandido) {
-        setTimeout(() => {
-            section.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }, 300); // espera a animação começar
-    }
-});
-
+        if (!expandido) {
+            setTimeout(() => {
+                section.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }, 300);
+        }
+    });
+}
 
 // ============ MODAL ===========
 
@@ -175,16 +175,22 @@ document.addEventListener("DOMContentLoaded", function () {
     ];
 
     const modal = document.getElementById("service-modal");
+
+    if (!modal) return; // ⬅️ ESSENCIAL
+
     const title = modal.querySelector(".modal-title");
     const description = modal.querySelector(".modal-description");
     const benefitsList = modal.querySelector(".modal-benefits");
     const closeBtn = modal.querySelector(".modal-close");
 
-    document.querySelectorAll(".service-card .button-mais").forEach((button, index) => {
+    document.querySelectorAll(".service-card .button-mais").forEach(button => {
         button.addEventListener("click", function (e) {
             e.preventDefault();
 
+            const index = this.dataset.service;
             const service = servicesData[index];
+
+            if (!service) return;
 
             title.textContent = service.title;
             description.textContent = service.description;
@@ -197,65 +203,91 @@ document.addEventListener("DOMContentLoaded", function () {
             });
 
             modal.classList.add("active");
+            document.body.style.overflow = "hidden";
         });
     });
 
     closeBtn.addEventListener("click", () => {
         modal.classList.remove("active");
+        document.body.style.overflow = "";
     });
 
     modal.addEventListener("click", (e) => {
         if (e.target === modal) {
             modal.classList.remove("active");
+            document.body.style.overflow = "";
         }
     });
-
 });
+
 
 // ====== ACCORDION ======
 
 const accordionItems = document.querySelectorAll('.accordion-item');
 const imageContainer = document.querySelector('.diferencial-image img');
 
-/* MAPA DE IMAGENS POR ITEM (ordem do HTML) */
-const images = [
-    'static/imgs/diferencial-1.jpg',
-    'static/imgs/diferencial-2.jpg',
-    'static/imgs/diferencial-3.jpg',
-    'static/imgs/diferencial-4.jpg',
-    'static/imgs/diferencial-5.jpg',
-    'static/imgs/diferencial-6.jpg'
-];
+if (accordionItems.length && imageContainer) {
 
-accordionItems.forEach((item, index) => {
-    const header = item.querySelector('.accordion-header');
-    const content = item.querySelector('.accordion-content');
+    const images = [
+        'static/imgs/diferencial-1.jpg',
+        'static/imgs/diferencial-2.jpg',
+        'static/imgs/diferencial-3.jpg',
+        'static/imgs/diferencial-4.jpg',
+        'static/imgs/diferencial-5.jpg',
+        'static/imgs/diferencial-6.jpg'
+    ];
 
-    header.addEventListener('click', () => {
-        const isOpen = item.classList.contains('active');
+    accordionItems.forEach((item, index) => {
+        const header = item.querySelector('.accordion-header');
+        const content = item.querySelector('.accordion-content');
 
-        /* Fecha todos */
-        accordionItems.forEach(i => {
-            i.classList.remove('active');
-            i.querySelector('.accordion-content').style.maxHeight = null;
+        header.addEventListener('click', () => {
+            const isOpen = item.classList.contains('active');
+
+            accordionItems.forEach(i => {
+                i.classList.remove('active');
+                i.querySelector('.accordion-content').style.maxHeight = null;
+            });
+
+            if (!isOpen) {
+                item.classList.add('active');
+                content.style.maxHeight = content.scrollHeight + 'px';
+
+                imageContainer.style.opacity = '0';
+                imageContainer.style.transform = 'scale(1.05)';
+
+                setTimeout(() => {
+                    imageContainer.src = images[index];
+                    imageContainer.onload = () => {
+                        imageContainer.style.opacity = '1';
+                        imageContainer.style.transform = 'scale(1)';
+                    };
+                }, 250);
+            }
         });
+    });
 
-        if (!isOpen) {
-            /* Abre o atual */
-            item.classList.add('active');
-            content.style.maxHeight = content.scrollHeight + 'px';
+}
 
-            /* Transição da imagem */
-            imageContainer.style.opacity = '0';
-            imageContainer.style.transform = 'scale(1.05)';
 
-            setTimeout(() => {
-                imageContainer.src = images[index];
-                imageContainer.onload = () => {
-                    imageContainer.style.opacity = '1';
-                    imageContainer.style.transform = 'scale(1)';
-                };
-            }, 250);
+// ====== SLIDE SUAVE DE SOBRE MIM ======
+
+document.addEventListener("DOMContentLoaded", function () {
+    const quemSouEuSlider = new Swiper('.quemSouEu-slider', {
+        loop: true,
+        grabCursor: true,
+        slidesPerView: 1,
+        spaceBetween: 0,
+
+        autoplay: {
+            delay: 2500,
+            disableOnInteraction: false,
+        },
+
+        speed: 1000,
+        effect: 'fade',
+        fadeEffect: {
+            crossFade: true
         }
     });
 });

@@ -24,9 +24,9 @@
 
 html,
 body {
-    max-width: 100%;
+    max-width: 100% !important;
     overflow-x: hidden;
-    position: relative;
+
 }
 
 /* ================= BODY ================= */
@@ -313,6 +313,56 @@ body {
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
 }
 
+
+/* BOTÃO WHATSAPP FLUTUANTE */
+.chat-float {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 56px;
+    height: 56px;
+    background: var(--detalhes);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+    z-index: 999;
+    animation: pulse-light 2s infinite;
+}
+
+.chat-float img {
+    width: 42px;
+    height: 42px;
+}
+
+
+.chat-float span {
+    margin-top: 8px;
+    font-size: 22px;
+}
+
+@keyframes pulse-light {
+    0% {
+        box-shadow: 0 0 0 0 rgba(81, 166, 81, 0.7);
+        /* Use a cor da sua variável --detalhes aqui */
+    }
+
+    70% {
+        box-shadow: 0 0 0 15px rgba(166, 115, 81, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(166, 115, 81, 0);
+    }
+}
+
+/* 3. Aplicando a animação ao botão flutuante */
+.chat-float {
+    /* Mantém suas propriedades originais e adiciona a linha abaixo */
+    animation: pulse-light 2s infinite;
+}
+
 /* ================= HERO SECTION ================= */
 .hero-section {
     position: relative;
@@ -479,7 +529,7 @@ body {
     display: grid !important;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: 32px;
-    
+
 }
 
 .card-quem {
@@ -1283,15 +1333,25 @@ body {
     font-size: 1.4rem;
     font-weight: 500;
     color: var(--cinza-texto);
-    text-decoration: underline;
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .link-localzacao:hover p {
-    border-radius: 32px;
-    padding: 8px 26px;
-    background-color: var(--verde-principal);
+    text-decoration: underline;
     color: var(--preto);
+}
+
+.localizacao-hours {
+    font-size: 1.4em;
+    color: var(--preto);
+    font-family: var(--fonte-titulo);
+    background-color: var(--verde-secundario);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25);
+    width: fit-content;
+    margin: auto;
+    padding: 12px 24px;
+    border-radius: 18px;
+    margin-bottom: 40px;
 }
 
 /* MAPA */
@@ -1463,8 +1523,223 @@ body {
 }
 
 
+/* ================= QUEM SOU EU ================= */
 
-/*
+.quem-sou-eu {
+    padding: 60px 6%;
+    background: #f7f9f8;
+}
+
+.container-quem {
+    max-width: 100%;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 70px;
+    align-items: center;
+}
+
+/* ===== SLIDER ===== */
+.foto-quem {
+    height: 620px;
+    border-radius: 22px;
+    overflow: hidden;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+}
+
+.quemSouEu-slider,
+.quemSouEu-slider .swiper-slide {
+    width: 100%;
+    height: 100%;
+}
+
+.quemSouEu-slider img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* ===== TEXTO ===== */
+.texto-quem h2 {
+    font-family: var(--fonte-elegante);
+    font-size: 52px;
+    color: var(--preto);
+    margin-bottom: 24px;
+    position: relative;
+}
+
+.texto-quem h2::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -10px;
+    width: 70%;
+    height: 3px;
+    background: linear-gradient(90deg,
+            transparent,
+            var(--verde-secundario),
+            transparent);
+}
+
+.texto-quem p {
+    font-size: 20px;
+    color: var(--cinza-texto);
+    line-height: 1.8;
+    margin-bottom: 18px;
+}
+
+.texto-quem strong {
+    color: var(--preto);
+}
+
+/* ===== DADOS ===== */
+.dados-quem {
+    display: flex;
+    gap: 40px;
+    margin-top: 35px;
+}
+
+.dados-quem div {
+    text-align: center;
+}
+
+.dados-quem strong {
+    display: block;
+    font-size: 34px;
+    font-family: var(--fonte-titulo);
+    color: var(--span);
+    font-weight: 700;
+}
+
+.dados-quem span {
+    font-size: 17px;
+    color: var(--cinza-texto);
+}
+
+
+/* =====================
+   SEÇÃO MISSÃO
+===================== */
+
+.missao {
+    padding: 100px 0;
+    background:
+        linear-gradient(180deg, #0a0a0a, #0f0f0f),
+        radial-gradient(circle at 50% 30%,
+            rgba(76, 175, 80, 0.15),
+            transparent 60%);
+    background-blend-mode: screen;
+    border: 1px solid rgba(0, 0, 0, 0.11);
+}
+
+.container-missao {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 60px;
+    max-width: 100%;
+    margin: auto;
+    padding: 0 20px;
+    overflow: hidden;
+}
+
+/* IMAGEM / SLIDER */
+.foto-missao {
+    width: 100%;
+    height: 620px;
+    overflow: hidden;
+    border-radius: 18px;
+    box-shadow: 0 18px 40px rgba(80, 80, 80, 0.15);
+}
+
+.foto-missao img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.missao-slider,
+.missao-slider .swiper-slide {
+    width: 100%;
+    height: 100%;
+}
+
+
+/* ===== SLIDER MISSÃO ===== */
+.foto-missao {
+    height: 620px;
+    /* 🔥 ESSENCIAL */
+    border-radius: 22px;
+    overflow: hidden;
+    box-shadow: 0 25px 50px rgba(0, 0, 0, .15);
+}
+
+.missao-slider,
+.missao-slider .swiper-slide {
+    width: 100%;
+    height: 100%;
+}
+
+.missao-slider img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* TEXTO */
+.texto-missao h2 {
+    font-size: 52px;
+    font-family: var(--fonte-titulo);
+    color: var(--cinza-claro);
+    margin-bottom: 20px;
+}
+
+.texto-missao h2::after {
+    content: '';
+    position: absolute;
+    right: 19%;
+    margin-top: 85px;
+    width: 40%;
+    height: 3px;
+    background: linear-gradient(90deg,
+            transparent,
+            var(--verde-principal),
+            transparent);
+}
+
+
+.texto-missao p {
+    font-family: var(--fonte-secundaria);
+    font-size: 20px;
+    line-height: 1.6em;
+    margin-bottom: 18px;
+    color: var(--cinza-claro);
+}
+
+/* DADOS */
+.dados-missao {
+    display: flex;
+    gap: 40px;
+    margin-top: 30px;
+}
+
+.dados-missao div {
+    text-align: center;
+}
+
+.dados-missao strong {
+    display: block;
+    font-size: 2.4rem;
+    font-family: var(--fonte-titulo);
+    color: var(--span);
+}
+
+.dados-missao span {
+    font-size: 1.1rem;
+    color: var(--cinza-claro);
+}
+
+/* 
 =======================
 RESPONSIVIDADE DO SITE
 =======================
@@ -1554,6 +1829,37 @@ RESPONSIVIDADE DO SITE
 
     .footer-logo span {
         text-align: center;
+    }
+
+    .container-quem {
+        gap: 50px;
+    }
+
+    .texto-quem h2,
+    .texto-missao h2 {
+        font-size: 44px;
+    }
+
+    .foto-quem,
+    .foto-missao {
+        height: 560px;
+    }
+
+    .texto-quem p,
+    .texto-missao p {
+        font-size: 19px;
+    }
+
+    .chat-float {
+        width: 54px;
+        height: 54px;
+        bottom: 28px;
+        right: 28px;
+    }
+
+    .chat-float img {
+        width: 40px;
+        height: 40px;
     }
 
 
@@ -1765,6 +2071,51 @@ RESPONSIVIDADE DO SITE
     .footer-links {
         display: none;
     }
+
+    .container-quem {
+        grid-template-columns: 1fr;
+        gap: 60px;
+        text-align: center;
+    }
+
+    .texto-quem h2::after,
+    .texto-missao h2::after {
+        left: 50%;
+        transform: translateX(-50%);
+    }
+
+    .dados-quem,
+    .dados-missao {
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 30px;
+    }
+
+    .container-missao {
+        flex-direction: column;
+        gap: 60px;
+        text-align: center;
+    }
+
+    .foto-quem,
+    .foto-missao {
+        height: 520px;
+        max-width: 90%;
+        margin: auto;
+    }
+
+    .chat-float {
+        width: 70px;
+        height: 70px;
+        bottom: 24px;
+        right: 24px;
+    }
+
+    .chat-float img {
+        width: 56px;
+        height: 56px;
+    }
+
 }
 
 @media (max-width: 768px) {
@@ -1815,7 +2166,7 @@ RESPONSIVIDADE DO SITE
 
     /* altura inicial (4 cards) */
     .cards-grid {
-        max-height: 712px;
+        max-height: 744px;
         /* suficiente para 4 cards */
     }
 
@@ -2025,6 +2376,39 @@ RESPONSIVIDADE DO SITE
     .footer-links {
         display: none;
     }
+
+    .quem-sou-eu,
+    .missao {
+        padding: 70px 6%;
+    }
+
+    .texto-quem h2,
+    .texto-missao h2 {
+        font-size: 38px;
+    }
+
+    .texto-quem p,
+    .texto-missao p {
+        font-size: 18px;
+    }
+
+    .foto-quem,
+    .foto-missao {
+        height: 580px;
+        border-radius: 18px;
+    }
+
+    .chat-float {
+        width: 70px;
+        height: 70px;
+        bottom: 24px;
+        right: 24px;
+    }
+
+    .chat-float img {
+        width: 56px;
+        height: 56px;
+    }
 }
 
 
@@ -2086,7 +2470,7 @@ RESPONSIVIDADE DO SITE
     }
 
     .cards-grid {
-        max-height: 762px;
+        max-height: 800px;
         /* suficiente para 4 cards */
     }
 
@@ -2292,6 +2676,41 @@ RESPONSIVIDADE DO SITE
         width: 42px;
         height: 42px;
     }
+
+    .texto-quem h2,
+    .texto-missao h2 {
+        font-size: 32px;
+    }
+
+    .texto-quem p,
+    .texto-missao p {
+        font-size: 16px;
+        line-height: 1.6;
+    }
+
+    .dados-quem,
+    .dados-missao {
+        flex-direction: column;
+        gap: 18px;
+    }
+
+    .foto-quem,
+    .foto-missao {
+        height: 380px;
+        max-width: 100%;
+    }
+
+    .chat-float {
+        width: 48px;
+        height: 48px;
+        bottom: 20px;
+        right: 20px;
+    }
+
+    .chat-float img {
+        width: 34px;
+        height: 34px;
+    }
 }
 
 
@@ -2322,7 +2741,7 @@ RESPONSIVIDADE DO SITE
     }
 
     .cards-grid {
-        max-height: 712px;
+        max-height: 744px;
         /* suficiente para 4 cards */
     }
 
@@ -2414,5 +2833,37 @@ RESPONSIVIDADE DO SITE
     .footer-social a {
         width: 30px;
         height: 30px;
+    }
+
+    .texto-quem h2,
+    .texto-missao h2 {
+        font-size: 28px;
+    }
+
+    .texto-quem p,
+    .texto-missao p {
+        font-size: 15px;
+    }
+
+    .dados-quem strong,
+    .dados-missao strong {
+        font-size: 24px;
+    }
+
+    .foto-quem,
+    .foto-missao {
+        height: 330px;
+    }
+
+    .chat-float {
+        width: 46px;
+        height: 46px;
+        bottom: 18px;
+        right: 18px;
+    }
+
+    .chat-float img {
+        width: 32px;
+        height: 32px;
     }
 }

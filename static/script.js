@@ -291,3 +291,68 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 });
+
+// ================= HEADER FIXO COM SCROLL =================
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const header = document.querySelector(".header");
+    if (!header) return;
+
+    let lastScrollY = window.scrollY;
+    let scrollTimeout;
+    let isInteracting = false;
+
+    const showHeader = () => {
+        header.classList.add("is-visible");
+        header.classList.remove("is-hidden");
+    };
+
+    const hideHeader = () => {
+        header.classList.remove("is-visible");
+        header.classList.add("is-hidden");
+    };
+
+    window.addEventListener("scroll", () => {
+        const currentScroll = window.scrollY;
+
+        // Sempre visível no topo
+        if (currentScroll <= 10) {
+            header.classList.add("is-fixed");
+            showHeader();
+            lastScrollY = currentScroll;
+            return;
+        }
+
+        header.classList.add("is-fixed");
+
+        // Scroll para baixo → esconde
+        if (currentScroll > lastScrollY && !isInteracting) {
+            hideHeader();
+        }
+
+        // Scroll para cima → mostra
+        if (currentScroll < lastScrollY - 10 && !isInteracting) {
+            showHeader();
+        }
+
+        lastScrollY = currentScroll;
+
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(() => {
+            if (!isInteracting && window.scrollY > 10) {
+                hideHeader();
+            }
+        }, 2500);
+    });
+
+    // Interação (desktop + mobile)
+    header.addEventListener("mouseenter", () => isInteracting = true);
+    header.addEventListener("mouseleave", () => isInteracting = false);
+    header.addEventListener("touchstart", () => isInteracting = true);
+    header.addEventListener("touchend", () => isInteracting = false);
+
+    // Estado inicial
+    header.classList.add("is-fixed", "is-visible");
+    header.classList.remove("is-hidden");
+});

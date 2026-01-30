@@ -39,11 +39,32 @@ body {
 
 /* ================= HEADER ================= */
 .header {
+    position: fixed;
     width: 100%;
     background-color: var(--cinza-claro);
     border-bottom: 1px solid rgba(0, 0, 0, 0.05);
     top: 0;
+    left: 0;
+    z-index: 1000;
+    transition: transform 0.4s ease, background 0.3s ease, box-shadow 0.3s ease;
+}
 
+
+/* Header visível */
+.header.is-visible {
+    transform: translateY(0);
+}
+
+/* Header escondido */
+.header.is-hidden {
+    transform: translateY(-100%);
+}
+
+/* Header fixo após scroll */
+.header.is-fixed {
+    background: rgba(255, 255, 255, 0.96);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
 }
 
 .header-content {
@@ -1622,7 +1643,7 @@ body {
 ===================== */
 
 .missao {
-    padding: 100px 0;
+    padding: 100px 4%;
     background:
         linear-gradient(180deg, #0a0a0a, #0f0f0f),
         radial-gradient(circle at 50% 30%,
@@ -1697,7 +1718,7 @@ body {
 .texto-missao h2::after {
     content: '';
     position: absolute;
-    right: 19%;
+    right: 30%;
     margin-top: 85px;
     width: 40%;
     height: 3px;
@@ -2084,6 +2105,10 @@ RESPONSIVIDADE DO SITE
         transform: translateX(-50%);
     }
 
+    .texto-missao h2::after {
+        margin-top: 70px;
+    }
+
     .dados-quem,
     .dados-missao {
         justify-content: center;
@@ -2387,6 +2412,10 @@ RESPONSIVIDADE DO SITE
         font-size: 38px;
     }
 
+    .texto-missao h2::after {
+        margin-top: 50px;
+    }
+
     .texto-quem p,
     .texto-missao p {
         font-size: 18px;
@@ -2682,6 +2711,10 @@ RESPONSIVIDADE DO SITE
         font-size: 32px;
     }
 
+    .texto-missao h2::after {
+        margin-top: 60px;
+    }
+
     .texto-quem p,
     .texto-missao p {
         font-size: 16px;
@@ -2838,6 +2871,10 @@ RESPONSIVIDADE DO SITE
     .texto-quem h2,
     .texto-missao h2 {
         font-size: 28px;
+    }
+
+    .texto-missao h2::after {
+        margin-top: 54px;
     }
 
     .texto-quem p,

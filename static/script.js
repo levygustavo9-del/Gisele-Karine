@@ -26,8 +26,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Fecha ao clicar em um link
     document.querySelectorAll(".header-nav a").forEach(link => {
-        link.addEventListener("click", closeMenu);
+        link.addEventListener("click", (e) => {
+
+            // NÃO fecha se for toggle de dropdown
+            if (link.classList.contains('dropdown-toggle')) {
+                return;
+            }
+
+            closeMenu();
+        });
     });
+
 });
 
 /*=== ANIMAÇÃO DO TIMELINE ===*/
@@ -62,11 +71,30 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+// ===== DROPDONW DE SERVIÇOS  =====
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const dropdown = document.querySelector('.nav-dropdown');
+    const toggle = dropdown?.querySelector('.dropdown-toggle');
+
+    if (!dropdown || !toggle) return;
+
+    toggle.addEventListener('click', (e) => {
+
+        // Mobile → abre dropdown
+        if (window.innerWidth < 1024) {
+            e.preventDefault();
+            dropdown.classList.toggle('active');
+        }
+    });
+});
+
 
 // ===== swiper ====
 
 document.addEventListener("DOMContentLoaded", function () {
-    const swiper = new Swiper(".services-swiper", {
+    servicesSwiper = new Swiper(".services-swiper", {
         loop: true,
         grabCursor: true,
         centeredSlides: true,
@@ -88,19 +116,75 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         },
 
-        // ✅ PAGINATION
         pagination: {
             el: ".services-swiper .swiper-pagination",
             clickable: true
         },
 
-        // ✅ SETAS
         navigation: {
             nextEl: ".services-swiper .swiper-button-next",
             prevEl: ".services-swiper .swiper-button-prev"
         }
     });
 });
+
+// =================== SCROLL SUAVE VER OS SERVIÇOS ===================
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    const footerLinks = document.querySelectorAll('.footer-column a[data-service]');
+    const servicesSection = document.querySelector('#servicos');
+
+    if (!footerLinks.length || !servicesSection) return;
+
+    footerLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+
+            const index = Number(link.dataset.service);
+
+            // Scroll suave até a seção
+            servicesSection.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+
+            // Aguarda o scroll e move o swiper
+            setTimeout(() => {
+                if (servicesSwiper) {
+                    servicesSwiper.slideToLoop(index, 700);
+                }
+            }, 200);
+        });
+    });
+});
+
+// =================== SCROLL SUAVE SERVIÇO VIA URL ===================
+document.addEventListener("DOMContentLoaded", () => {
+
+    if (!window.location.search.includes('service')) return;
+    if (!servicesSwiper) return;
+
+    const params = new URLSearchParams(window.location.search);
+    const serviceIndex = Number(params.get('service'));
+
+    if (isNaN(serviceIndex)) return;
+
+    const servicesSection = document.querySelector('#servicos');
+
+    // Scroll até a seção
+    servicesSection.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+    });
+
+    // Garante que o swiper vá para o slide correto
+    setTimeout(() => {
+        servicesSwiper.slideToLoop(serviceIndex, 800);
+    }, 200);
+});
+
+
 
 // =========== VER TODOS OS PERFIS ==========
 
@@ -343,7 +427,7 @@ document.addEventListener("DOMContentLoaded", () => {
             if (!isInteracting && window.scrollY > 10) {
                 hideHeader();
             }
-        }, 2500);
+        }, 1500);
     });
 
     // Interação (desktop + mobile)

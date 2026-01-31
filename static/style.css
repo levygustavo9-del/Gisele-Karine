@@ -49,7 +49,6 @@ body {
     transition: transform 0.4s ease, background 0.3s ease, box-shadow 0.3s ease;
 }
 
-
 /* Header visível */
 .header.is-visible {
     transform: translateY(0);
@@ -134,6 +133,88 @@ body {
     justify-content: flex-end;
 }
 
+/* ===== DROPDOWN HEADER ===== */
+.nav-dropdown {
+    position: relative;
+}
+
+.dropdown-toggle {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.dropdown-arrow {
+    font-size: 0.7em;
+    transition: transform 0.3s ease;
+}
+
+/* Desktop (hover) */
+@media (min-width: 1024px) {
+    .nav-dropdown:hover .dropdown-menu {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+
+    .dropdown-menu li a {
+        font-size: 0.35rem;
+        /* ↓ menor */
+        padding: 6px 0;
+        font-weight: 400;
+        opacity: 0.9;
+    }
+
+    .dropdown-menu {
+        padding: 4px 0 4px 12px;
+        /* ↓ menos espaço */
+    }
+
+    .nav-dropdown:hover .dropdown-arrow {
+        transform: rotate(180deg);
+    }
+}
+
+/* Menu */
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
+    padding: 10px 0;
+    min-width: 220px;
+
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
+    z-index: 999;
+}
+
+.dropdown-menu li a {
+    display: block;
+    padding: 10px 18px;
+    color: var(--preto);
+    font-size: 0.95rem;
+    white-space: nowrap;
+}
+
+.dropdown-menu li a:hover {
+    background: var(--cinza-claro);
+    color: var(--span);
+}
+
+/* Mobile (abre por clique) */
+.nav-dropdown.active .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    position: static;
+    box-shadow: none;
+}
+
 .menu-footer {
     display: none;
 }
@@ -200,7 +281,8 @@ body {
     }
 
     .menu-close {
-        display: flex;
+        display: block;
+        margin-right: 25px;
     }
 
     /* Estilo do Menu Lateral (Esquerda) */
@@ -338,7 +420,7 @@ body {
 /* BOTÃO WHATSAPP FLUTUANTE */
 .chat-float {
     position: fixed;
-    bottom: 30px;
+    bottom: 40px;
     right: 30px;
     width: 56px;
     height: 56px;
@@ -388,12 +470,13 @@ body {
 .hero-section {
     position: relative;
     width: 100%;
-    min-height: 100vh;
+    min-height: 111vh;
 
     display: flex;
     align-items: center;
 
     padding: 0 6%;
+    margin-top: 12%;
 
     background-image:
         linear-gradient(to right,
@@ -409,6 +492,7 @@ body {
 
 /* HERO CONTENT */
 .hero-content {
+    margin-top: 20px;
     position: absolute;
     max-width: 600px;
     z-index: 2;
@@ -1548,6 +1632,7 @@ body {
 
 .quem-sou-eu {
     padding: 60px 6%;
+    margin-top: 12%;
     background: #f7f9f8;
 }
 
@@ -1780,6 +1865,15 @@ RESPONSIVIDADE DO SITE
         font-size: 1.4rem;
     }
 
+    .dropdown-menu {
+        min-width: 200px;
+    }
+
+    .dropdown-menu li a {
+        font-size: 0.9rem;
+        padding: 8px 16px;
+    }
+
     .cards-grid {
         gap: 26px;
     }
@@ -1888,8 +1982,77 @@ RESPONSIVIDADE DO SITE
 
 @media (max-width: 992px) {
 
+    .nav-dropdown {
+        display: block;
+        overflow: hidden;
+        /* 🔑 mata espaço invisível */
+        max-height: 44px;
+        margin-bottom: 26px;
+        /* 🔑 só a altura do link */
+        transition: max-height 0.3s ease;
+    }
+
+    .nav-dropdown.active {
+        max-height: 400px;
+        /* 🔑 espaço ao abrir */
+    }
+
+    /* ===== LINK "SERVIÇOS" ===== */
+    .nav-dropdown>a {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        font-size: 0.95rem;
+        padding: 15px 0;
+        line-height: 1.1;
+    }
+
+    /* ===== DROPDOWN ===== */
+    .dropdown-menu {
+        display: block;
+        overflow: hidden;
+        max-height: 0;
+        /* 🔥 fechado = ZERO espaço */
+        padding-left: 12px;
+        border-left: 2px solid var(--verde-principal);
+        margin-bottom: 10px;
+
+        transition: max-height 0.3s ease;
+    }
+
+    .nav-dropdown.active .dropdown-menu {
+        max-height: 300px;
+        margin-top: 0px;
+    }
+
+    .dropdown-menu li a {
+        font-size: 0.82rem;
+        /* ⬅️ menor e elegante */
+        padding: 6px 0;
+        line-height: 1.2;
+        font-weight: 400;
+    }
+
+    /* seta */
+    .dropdown-arrow {
+        font-size: 0.7em;
+        transition: transform 0.3s ease;
+    }
+
+    .nav-dropdown.active .dropdown-arrow {
+        transform: rotate(180deg);
+    }
+
+    .header-nav {
+        justify-content: flex-start;
+        /* ⬅️ tira centralização vertical */
+        padding: 80px 0px 20px 20px;
+    }
+
     /* HERO */
     .hero-section {
+        margin-top: 20%;
         min-height: 50vh;
         background-position: center;
         padding: 0 5%;
@@ -2094,6 +2257,7 @@ RESPONSIVIDADE DO SITE
     }
 
     .container-quem {
+        margin-top: 12%;
         grid-template-columns: 1fr;
         gap: 60px;
         text-align: center;
@@ -2145,8 +2309,37 @@ RESPONSIVIDADE DO SITE
 
 @media (max-width: 768px) {
 
+    .header-nav ul {
+        gap: 2px;
+        margin-top: 10px;
+    }
+
+    .header-nav ul li a {
+        font-size: 1.4rem;
+        padding: 9px 0;
+        line-height: 1.3;
+    }
+
+    .nav-dropdown {
+        margin-bottom: 1px;
+    }
+
+    .dropdown-menu {
+        padding-left: 8px;
+    }
+
+    .dropdown-menu li a {
+        padding: 6px 0;
+    }
+
+
+    .dropdown-menu li a {
+        font-size: 0.85rem;
+    }
+
     /* HERO */
     .hero-section {
+        margin-top: 20%;
         min-height: 60vh;
         align-items: flex-end;
         padding-bottom: 80px;
@@ -2402,6 +2595,10 @@ RESPONSIVIDADE DO SITE
         display: none;
     }
 
+    .container-quem {
+        margin-top: 22%;
+    }
+
     .quem-sou-eu,
     .missao {
         padding: 70px 6%;
@@ -2440,467 +2637,511 @@ RESPONSIVIDADE DO SITE
     }
 }
 
-
-@media (max-width: 430px) {
-
-    /* HERO */
-    .hero-section {
-        padding: 20px 6%;
-    }
-
-    .hero-content h1 {
-        font-size: 1.9rem;
-    }
-
-    .hero-content p {
-        max-width: 90%;
-        font-size: 1.4rem;
-        line-height: 1.6;
-    }
-
-    .hero-button {
-        padding: 14px 34px;
-        font-size: 0.85rem;
-    }
-
-    .hero-section {
-        background-image:
-            linear-gradient(to right,
-                rgba(0, 0, 0, 0.65),
-                rgba(0, 0, 0, 0.35),
-                rgba(0, 0, 0, 0.1)),
-            url("imgs/hero-img.png");
-
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-position: 90% center;
-    }
-
-    /* PARA QUEM É */
-    .quem-header h2 {
-        font-size: 2rem;
-    }
-
-    .quem-header p {
-        font-size: 1.2rem;
-    }
-
-    .linha-quem {
-        width: 90%;
-    }
-
-    /* CARDS */
-    .card-quem h3 {
-        font-size: 1.15rem;
-    }
-
-    .card-quem p {
-        font-size: 1rem;
-    }
-
-    .cards-grid {
-        max-height: 800px;
-        /* suficiente para 4 cards */
-    }
-
-    .button-quem {
-        padding: 10px 15px;
-    }
-
-    .timeline-section {
-        padding: 70px 5%;
-    }
-
-    /* TIMELINE */
-    .timeline {
-        padding-left: 52px;
-    }
-
-    .timeline-step .dot {
-        width: 28px;
-        height: 28px;
-        left: -35px;
-    }
-
-    .timeline-header h2 {
-        font-size: 2.4rem;
-    }
-
-    .timeline-header p {
-        font-size: 1.4rem;
-    }
-
-    .timeline-step h3 {
-        font-size: 1.10rem;
-    }
-
-    /* SERVIÇOS */
-    .services-header h2 {
-        font-size: 2.2rem;
-    }
-
-    .services-swiper {
-        max-width: 290px;
-        height: auto;
-    }
-
-    .service-card {
-        padding-bottom: 20px;
-    }
-
-    .service-card img {
-        max-width: 100%;
-    }
-
-    .services-header h2 {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        line-height: 1;
-    }
-
-    .services-header .and {
-        display: block;
-        margin: 8px 0;
-        font-size: 1em;
-        font-weight: 700;
-    }
-
-    /* MODAL */
-    .modal-card {
-        padding: 34px 26px;
-    }
-
-    .modal-title {
-        font-size: 1.6rem;
-    }
-
-    .diferenciais-section {
-        padding: 64px 5%;
-    }
-
-    .diferenciais-header h2 {
-        font-size: 2em;
-    }
-
-    .diferenciais-header p {
-        font-size: 1.2rem;
-        margin-bottom: 40px;
-    }
-
-    .accordion-header {
-        padding: 18px 20px;
-        font-size: 1rem;
-    }
-
-    .accordion-content p {
-        font-size: .9rem;
-        padding: 0 20px 20px;
-    }
-
-    .diferencial-image {
-        display: none;
-    }
-
-    .cta-strong-section {
-        padding: 60px 5%;
-    }
-
-    .cta-strong-content h2 {
-        font-size: 1.7em;
-    }
-
-    .cta-strong-content p {
-        font-size: 1.05em;
-        margin-bottom: 24px;
-    }
-
-    .cta-strong-button {
-        width: 100%;
-        padding: 16px;
-        font-size: 1em;
-    }
-
-    .cta-strong-content small {
-        font-size: 0.8em;
-    }
-
-    .cta-strong-content h2 {
-        font-size: 1.5em;
-    }
-
-    .cta-strong-content p {
-        font-size: 0.95em;
-    }
-
-    .cta-strong-button {
-        font-size: 0.95em;
-        padding: 14px;
-    }
-
-    .cta-strong-content small {
-        font-size: 0.75em;
-    }
-
-    .localizacao {
-        padding: 53px 8%;
-    }
-
-    .localizacao h1 {
-        font-size: 1.9rem;
-    }
-
-    .linha-localizacao {
-        width: 150px;
-    }
-
-    .localizacao-text {
-        font-size: 1.2rem;
-    }
-
-    .link-localzacao p {
-        font-size: 1.05rem;
-        line-height: 1.5;
-    }
-
-    .localizacao iframe {
-        height: 300px;
-        border-radius: 18px;
-    }
-
-    .button {
-        width: 100%;
-        justify-content: center;
-        padding: 16px;
-        font-size: 1rem;
-    }
-
-    .footer-container {
-        padding: 5px 9%;
-        gap: 22px;
-    }
-
-    .footer-logo img {
-        width: 96px;
-    }
-
-    .footer-logo span {
-        font-size: 1.4em;
-    }
-
-    .footer-column h4 {
-        font-size: 1em;
-    }
-
-    .footer-column p,
-    .footer-column a {
-        font-size: 0.95em;
-    }
-
-    .footer-links {
-        display: none;
-    }
-
-    .footer-social a {
-        width: 42px;
-        height: 42px;
-    }
-
-    .texto-quem h2,
-    .texto-missao h2 {
-        font-size: 32px;
-    }
-
-    .texto-missao h2::after {
-        margin-top: 60px;
-    }
-
-    .texto-quem p,
-    .texto-missao p {
-        font-size: 16px;
-        line-height: 1.6;
-    }
-
-    .dados-quem,
-    .dados-missao {
-        flex-direction: column;
-        gap: 18px;
-    }
-
-    .foto-quem,
-    .foto-missao {
-        height: 380px;
-        max-width: 100%;
-    }
-
-    .chat-float {
-        width: 48px;
-        height: 48px;
-        bottom: 20px;
-        right: 20px;
-    }
-
-    .chat-float img {
-        width: 34px;
-        height: 34px;
-    }
-}
-
-
-@media (max-width: 360px) {
-
-    .hero-content h1 {
-        font-size: 1.7rem;
-    }
-
-    .hero-content p {
-        font-size: 1rem;
-    }
-
-    .hero-button {
-        padding: 12px 30px;
-    }
-
-    .quem-header h2 {
-        font-size: 1.8rem;
-    }
-
-    .quem-header p {
-        font-size: 1.1rem;
-    }
-
-    .card-quem {
-        padding: 26px 18px;
-    }
-
-    .cards-grid {
-        max-height: 744px;
-        /* suficiente para 4 cards */
-    }
-
-    .timeline-step .content h3 {
-        font-size: 1.25rem;
-    }
-
-    .timeline-step .content p {
-        font-size: 1rem;
-    }
-
-    .services-header h2 {
-        font-size: 2rem;
-    }
-
-
-    .services-swiper {
-        max-width: 220px;
-        height: auto;
-    }
-
-    .button-mais {
-        padding: 14px 32px;
-    }
-
-    .diferenciais-header h2 {
-        font-size: 1.8em;
-    }
-
-    .accordion-header {
-        font-size: .95rem;
-        gap: 12px;
-    }
-
-    .accordion-header .icon {
-        width: 30px;
-        height: 30px;
-        font-size: 1.2rem;
-    }
-
-    .diferencial-image {
-        display: none;
-    }
-
-    .localizacao h1 {
-        font-size: 1.7rem;
-    }
-
-    .localizacao-text {
-        font-size: 1.1rem;
-    }
-
-    .link-localzacao p {
-        font-size: 0.95rem;
-    }
-
-    .linha-localizacao {
-        width: 130px;
-    }
-
-    .localizacao iframe {
-        height: 260px;
-        border-radius: 16px;
-    }
-
-    .button {
-        font-size: 0.95rem;
-        padding: 14px;
-    }
-
-    .footer-container {
-        padding: 0px 7%;
-        gap: 23px;
-    }
-
-    .footer-logo span {
-        font-size: 1.3em;
-    }
-
-    .footer-column p,
-    .footer-column a {
-        font-size: 0.6em;
-    }
-
-    .footer-links {
-        display: none;
-    }
-
-    .footer-social a {
-        width: 30px;
-        height: 30px;
-    }
-
-    .texto-quem h2,
-    .texto-missao h2 {
-        font-size: 28px;
-    }
-
-    .texto-missao h2::after {
-        margin-top: 54px;
-    }
-
-    .texto-quem p,
-    .texto-missao p {
-        font-size: 15px;
-    }
-
-    .dados-quem strong,
-    .dados-missao strong {
-        font-size: 24px;
-    }
-
-    .foto-quem,
-    .foto-missao {
-        height: 330px;
-    }
-
-    .chat-float {
-        width: 46px;
-        height: 46px;
-        bottom: 18px;
-        right: 18px;
-    }
-
-    .chat-float img {
-        width: 32px;
-        height: 32px;
+    @media (max-width: 430px) {
+
+        .dropdown-menu {
+            padding-left: 12px;
+        }
+
+        .dropdown-menu li a {
+            font-size: 0.75rem;
+        }
+
+        .dropdown-arrow a {
+            font-size: 0.5em;
+        }
+
+        .dropdown-arrow {
+            font-size: 0.6em;
+        }
+
+        /* HERO */
+        .hero-section {
+            margin-top: 31%;
+            padding: 20px 6%;
+        }
+
+        .hero-content {
+            margin-top: 20px;
+        }
+
+        .hero-content h1 {
+            font-size: 1.9rem;
+        }
+
+        .hero-content p {
+            max-width: 90%;
+            font-size: 1.4rem;
+            line-height: 1.6;
+        }
+
+        .hero-button {
+            padding: 14px 34px;
+            font-size: 0.85rem;
+        }
+
+        .hero-section {
+            background-image:
+                linear-gradient(to right,
+                    rgba(0, 0, 0, 0.65),
+                    rgba(0, 0, 0, 0.35),
+                    rgba(0, 0, 0, 0.1)),
+                url("imgs/hero-img.png");
+
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: 90% center;
+        }
+
+        /* PARA QUEM É */
+        .quem-header h2 {
+            font-size: 2rem;
+        }
+
+        .quem-header p {
+            font-size: 1.2rem;
+        }
+
+        .linha-quem {
+            width: 90%;
+        }
+
+        /* CARDS */
+        .card-quem h3 {
+            font-size: 1.15rem;
+        }
+
+        .card-quem p {
+            font-size: 1rem;
+        }
+
+        .cards-grid {
+            max-height: 800px;
+            /* suficiente para 4 cards */
+        }
+
+        .button-quem {
+            padding: 10px 15px;
+        }
+
+        .timeline-section {
+            padding: 70px 5%;
+        }
+
+        /* TIMELINE */
+        .timeline {
+            padding-left: 52px;
+        }
+
+        .timeline-step .dot {
+            width: 28px;
+            height: 28px;
+            left: -35px;
+        }
+
+        .timeline-header h2 {
+            font-size: 2.4rem;
+        }
+
+        .timeline-header p {
+            font-size: 1.4rem;
+        }
+
+        .timeline-step h3 {
+            font-size: 1.10rem;
+        }
+
+        /* SERVIÇOS */
+        .services-header h2 {
+            font-size: 2.2rem;
+        }
+
+        .services-swiper {
+            max-width: 290px;
+            height: auto;
+        }
+
+        .service-card {
+            padding-bottom: 20px;
+        }
+
+        .service-card img {
+            max-width: 100%;
+        }
+
+        .services-header h2 {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            line-height: 1;
+        }
+
+        .services-header .and {
+            display: block;
+            margin: 8px 0;
+            font-size: 1em;
+            font-weight: 700;
+        }
+
+        /* MODAL */
+        .modal-card {
+            padding: 34px 26px;
+        }
+
+        .modal-title {
+            font-size: 1.6rem;
+        }
+
+        .diferenciais-section {
+            padding: 64px 5%;
+        }
+
+        .diferenciais-header h2 {
+            font-size: 2em;
+        }
+
+        .diferenciais-header p {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+        }
+
+        .accordion-header {
+            padding: 18px 20px;
+            font-size: 1rem;
+        }
+
+        .accordion-content p {
+            font-size: .9rem;
+            padding: 0 20px 20px;
+        }
+
+        .diferencial-image {
+            display: none;
+        }
+
+        .cta-strong-section {
+            padding: 60px 5%;
+        }
+
+        .cta-strong-content h2 {
+            font-size: 1.7em;
+        }
+
+        .cta-strong-content p {
+            font-size: 1.05em;
+            margin-bottom: 24px;
+        }
+
+        .cta-strong-button {
+            width: 100%;
+            padding: 16px;
+            font-size: 1em;
+        }
+
+        .cta-strong-content small {
+            font-size: 0.8em;
+        }
+
+        .cta-strong-content h2 {
+            font-size: 1.5em;
+        }
+
+        .cta-strong-content p {
+            font-size: 0.95em;
+        }
+
+        .cta-strong-button {
+            font-size: 0.95em;
+            padding: 14px;
+        }
+
+        .cta-strong-content small {
+            font-size: 0.75em;
+        }
+
+        .localizacao {
+            padding: 53px 8%;
+        }
+
+        .localizacao h1 {
+            font-size: 1.9rem;
+        }
+
+        .linha-localizacao {
+            width: 150px;
+        }
+
+        .localizacao-text {
+            font-size: 1.2rem;
+        }
+
+        .link-localzacao p {
+            font-size: 1.05rem;
+            line-height: 1.5;
+        }
+
+        .localizacao iframe {
+            height: 300px;
+            border-radius: 18px;
+        }
+
+        .button {
+            width: 100%;
+            justify-content: center;
+            padding: 16px;
+            font-size: 1rem;
+        }
+
+        .footer-container {
+            padding: 5px 9%;
+            gap: 22px;
+        }
+
+        .footer-logo img {
+            width: 96px;
+        }
+
+        .footer-logo span {
+            font-size: 1.4em;
+        }
+
+        .footer-column h4 {
+            font-size: 1em;
+        }
+
+        .footer-column p,
+        .footer-column a {
+            font-size: 0.95em;
+        }
+
+        .footer-links {
+            display: none;
+        }
+
+        .footer-social a {
+            width: 42px;
+            height: 42px;
+        }
+
+        .container-quem {
+            margin-top: 22%;
+        }
+
+        .texto-quem h2,
+        .texto-missao h2 {
+            font-size: 32px;
+        }
+
+        .texto-missao h2::after {
+            margin-top: 60px;
+        }
+
+        .texto-quem p,
+        .texto-missao p {
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .dados-quem,
+        .dados-missao {
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .foto-quem,
+        .foto-missao {
+            height: 380px;
+            max-width: 100%;
+        }
+
+        .chat-float {
+            width: 48px;
+            height: 48px;
+            bottom: 20px;
+            right: 20px;
+        }
+
+        .chat-float img {
+            width: 34px;
+            height: 34px;
+        }
+    }
+
+
+    @media (max-width: 360px) {
+
+        .dropdown-menu li a {
+            font-size: 0.7rem;
+        }
+
+        .nav-dropdown>a {
+            font-size: 0.55rem;
+        }
+
+        .dropdown-menu {
+            padding-left: 10px;
+        }
+
+        .hero-section {
+            margin-top: 35%;
+        }
+
+        .hero-content h1 {
+            font-size: 1.7rem;
+        }
+
+        .hero-content p {
+            font-size: 1rem;
+        }
+
+        .hero-button {
+            padding: 12px 30px;
+        }
+
+        .quem-header h2 {
+            font-size: 1.8rem;
+        }
+
+        .quem-header p {
+            font-size: 1.1rem;
+        }
+
+        .card-quem {
+            padding: 26px 18px;
+        }
+
+        .cards-grid {
+            max-height: 744px;
+            /* suficiente para 4 cards */
+        }
+
+        .timeline-step .content h3 {
+            font-size: 1.25rem;
+        }
+
+        .timeline-step .content p {
+            font-size: 1rem;
+        }
+
+        .services-header h2 {
+            font-size: 2rem;
+        }
+
+
+        .services-swiper {
+            max-width: 220px;
+            height: auto;
+        }
+
+        .button-mais {
+            padding: 14px 32px;
+        }
+
+        .diferenciais-header h2 {
+            font-size: 1.8em;
+        }
+
+        .accordion-header {
+            font-size: .95rem;
+            gap: 12px;
+        }
+
+        .accordion-header .icon {
+            width: 30px;
+            height: 30px;
+            font-size: 1.2rem;
+        }
+
+        .diferencial-image {
+            display: none;
+        }
+
+        .localizacao h1 {
+            font-size: 1.7rem;
+        }
+
+        .localizacao-text {
+            font-size: 1.1rem;
+        }
+
+        .link-localzacao p {
+            font-size: 0.95rem;
+        }
+
+        .linha-localizacao {
+            width: 130px;
+        }
+
+        .localizacao iframe {
+            height: 260px;
+            border-radius: 16px;
+        }
+
+        .button {
+            font-size: 0.95rem;
+            padding: 14px;
+        }
+
+        .footer-container {
+            padding: 0px 7%;
+            gap: 23px;
+        }
+
+        .footer-logo span {
+            font-size: 1.3em;
+        }
+
+        .footer-column p,
+        .footer-column a {
+            font-size: 0.6em;
+        }
+
+        .footer-links {
+            display: none;
+        }
+
+        .footer-social a {
+            width: 30px;
+            height: 30px;
+        }
+
+        .container-quem {
+            margin-top: 22%;
+        }
+
+        .texto-quem h2,
+        .texto-missao h2 {
+            font-size: 28px;
+        }
+
+        .texto-missao h2::after {
+            margin-top: 54px;
+        }
+
+        .texto-quem p,
+        .texto-missao p {
+            font-size: 15px;
+        }
+
+        .dados-quem strong,
+        .dados-missao strong {
+            font-size: 24px;
+        }
+
+        .foto-quem,
+        .foto-missao {
+            height: 330px;
+        }
+
+        .chat-float {
+            width: 46px;
+            height: 46px;
+            bottom: 18px;
+            right: 18px;
+        }
+
+        .chat-float img {
+            width: 32px;
+            height: 32px;
+        }
     }
-}

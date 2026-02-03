@@ -440,3 +440,310 @@ document.addEventListener("DOMContentLoaded", () => {
     header.classList.add("is-fixed", "is-visible");
     header.classList.remove("is-hidden");
 });
+
+// ====== CHATBOT ======
+
+//CHAT BOt
+const chatToggle = document.getElementById("chatToggle");
+const chatbot = document.getElementById("chatbot");
+const closeChat = document.getElementById("closeChat");
+const chatBody = document.getElementById("chatBody");
+const chatOptions = document.getElementById("chatOptions");
+
+chatToggle.onclick = () => chatbot.classList.toggle("hidden");
+closeChat.onclick = () => chatbot.classList.add("hidden");
+
+function botMessage(text) {
+    chatBody.innerHTML += `<div class="bot">${text}</div>`;
+    chatBody.scrollTop = chatBody.scrollHeight;
+}
+
+function showOptions(options) {
+    chatOptions.innerHTML = "";
+    options.forEach(opt => {
+        const btn = document.createElement("button");
+        btn.innerText = opt.label;
+        btn.onclick = opt.action;
+        chatOptions.appendChild(btn);
+    });
+}
+
+// ===== FLUXOS =====
+document.addEventListener("DOMContentLoaded", () => {
+
+    /* ===============================
+       ELEMENTOS
+    =============================== */
+    const chatToggle = document.getElementById("chatToggle");
+    const chatbot = document.getElementById("chatbot");
+    const closeChat = document.getElementById("closeChat");
+    const chatBody = document.getElementById("chatBody");
+    const chatOptions = document.getElementById("chatOptions");
+    const chatOverlay = document.getElementById("chatOverlay");
+    const clearChatBtn = document.getElementById("clearChat");
+
+    let userData = {};
+    let typingEl = null;
+
+    /* ===============================
+       ABRIR / FECHAR CHAT
+    =============================== */
+    function openChat() {
+        chatbot.classList.remove("hidden");
+        chatOverlay.classList.remove("hidden");
+        document.body.style.overflow = "hidden";
+
+        if (!chatbot.dataset.started) {
+            startChat();
+            chatbot.dataset.started = "true";
+        }
+    }
+
+    function closeChatFn() {
+        chatbot.classList.add("hidden");
+        chatOverlay.classList.add("hidden");
+        document.body.style.overflow = "";
+    }
+
+    chatToggle.addEventListener("click", openChat);
+    closeChat.addEventListener("click", closeChatFn);
+    chatOverlay.addEventListener("click", closeChatFn);
+
+    /* ===============================
+       LIMPAR CONVERSA (DESKTOP + MOBILE)
+    =============================== */
+    function resetChat(e) {
+        e.preventDefault();
+
+        chatBody.innerHTML = "";
+        chatOptions.innerHTML = "";
+        userData = {};
+        chatbot.dataset.started = "";
+
+        botReply("Tudo bem 😊 Vamos começar novamente.", 1000);
+        setTimeout(startChat, 1200);
+    }
+
+    if (clearChatBtn) {
+        clearChatBtn.addEventListener("click", resetChat);
+        clearChatBtn.addEventListener("touchstart", resetChat, { passive: false });
+    }
+
+    /* ===============================
+       BASE DE CONHECIMENTO
+    =============================== */
+    const knowledge = {
+        intro: `
+Olá! Sou a assistente virtual da Nutri Gisele Karine.
+Estou aqui para te orientar sobre os serviços nutricionais
+e esclarecer suas dúvidas iniciais.
+    `,
+        horarios: `
+Os atendimentos acontecem de quarta a sexta-feira,
+com horários flexíveis para se adequar à sua rotina.
+(atendimento é realizado mediante agendamento prévio).
+    `,
+        localizacao: `
+Av. Teotônio Vilela, 3261 - Lot. Vila Rica, Rio Largo - 
+Maceió – AL | CEP: 57.100-000
+    `,
+        procedimentos: {
+            nutricao_esportiva: {
+                nome: "Nutrição Esportiva",
+                descricao: "Planejamento alimentar individualizado voltado para melhora da performance, recuperação muscular e prevenção de lesões.",
+                indicado: "Pessoas fisicamente ativas, atletas ou praticantes de exercícios que desejam melhorar rendimento e resultados.",
+                como_funciona: "É realizada uma avaliação completa da rotina de treinos, objetivos, hábitos alimentares e composição corporal para elaboração de um plano alimentar personalizado."
+            },
+
+            emagrecimento: {
+                nome: "Emagrecimento",
+                descricao: "Estratégias nutricionais seguras e sustentáveis para redução de gordura corporal e melhora da saúde metabólica.",
+                indicado: "Pessoas que desejam emagrecer de forma saudável, sem dietas restritivas e com acompanhamento profissional.",
+                como_funciona: "O plano alimentar é ajustado à rotina do paciente, promovendo déficit calórico controlado e educação alimentar."
+            },
+
+            avaliacao_corporal: {
+                nome: "Avaliação Corporal",
+                descricao: "Análise detalhada da composição corporal e acompanhamento da evolução física.",
+                indicado: "Pessoas que desejam acompanhar resultados, evolução estética e desempenho físico.",
+                como_funciona: "São realizadas medições corporais e análise de dados para acompanhamento e ajustes no plano nutricional."
+            },
+
+            performance: {
+                nome: "Performance",
+                descricao: "Protocolos nutricionais específicos para melhora do rendimento físico e esportivo.",
+                indicado: "Atletas e praticantes de atividade física que buscam aumento de força, resistência e desempenho.",
+                como_funciona: "A nutrição é ajustada conforme volume de treino, competição, descanso e necessidades energéticas."
+            },
+
+            reeducacao_alimentar: {
+                nome: "Reeducação Alimentar",
+                descricao: "Construção de hábitos alimentares saudáveis e sustentáveis.",
+                indicado: "Pessoas que desejam melhorar a relação com a comida e manter resultados a longo prazo.",
+                como_funciona: "O acompanhamento é feito de forma gradual, respeitando a rotina e preferências alimentares."
+            },
+
+            nutricao_clinica: {
+                nome: "Nutrição Clínica",
+                descricao: "Acompanhamento nutricional para promoção da saúde e controle de condições metabólicas.",
+                indicado: "Pessoas com alterações metabólicas, digestivas ou que buscam mais qualidade de vida.",
+                como_funciona: "O atendimento é baseado em avaliação clínica, exames e planejamento alimentar individualizado."
+            }
+        }
+    };
+
+    /* ===============================
+       DIGITAÇÃO REAL
+    =============================== */
+    function showTyping() {
+        hideTyping();
+        typingEl = document.createElement("div");
+        typingEl.className = "bot typing";
+        typingEl.textContent = "Digitando...";
+        chatBody.appendChild(typingEl);
+        chatBody.scrollTop = chatBody.scrollHeight;
+    }
+
+    function hideTyping() {
+        if (typingEl) {
+            typingEl.remove();
+            typingEl = null;
+        }
+    }
+
+    function botReply(text, delay = 900) {
+        showTyping();
+        setTimeout(() => {
+            hideTyping();
+            chatBody.innerHTML += `<div class="bot">${text.replace(/\n/g, "<br>")}</div>`;
+            chatBody.scrollTop = chatBody.scrollHeight;
+        }, delay + Math.random() * 500);
+    }
+
+    function userReply(text) {
+        chatBody.innerHTML += `<div class="user">${text}</div>`;
+        chatBody.scrollTop = chatBody.scrollHeight;
+    }
+
+    function showOptions(options) {
+        chatOptions.innerHTML = "";
+        options.forEach(opt => {
+            const btn = document.createElement("button");
+            btn.textContent = opt.label;
+            btn.onclick = () => {
+                userReply(opt.label);
+                chatOptions.innerHTML = "";
+                opt.action();
+            };
+            chatOptions.appendChild(btn);
+        });
+    }
+
+    /* ===============================
+       FLUXO
+    =============================== */
+    function startChat() {
+        chatBody.innerHTML = "";
+        chatOptions.innerHTML = "";
+        botReply(knowledge.intro);
+        setTimeout(askName, 1200);
+    }
+
+    function askName() {
+        botReply("Antes de começarmos, como posso te chamar?");
+        chatOptions.innerHTML = `
+            <div class="chat-input-area">
+                <input type="text" id="inputUser" placeholder="Digite seu nome" />
+                <button id="sendBtn">Enviar</button>
+            </div>
+        `;
+
+        const input = document.getElementById("inputUser");
+        const btn = document.getElementById("sendBtn");
+
+        btn.onclick = () => {
+            if (!input.value.trim()) return;
+            userReply(input.value);
+            userData.nome = input.value.trim();
+            chatOptions.innerHTML = "";
+            botReply(`Prazer, ${userData.nome}! Como posso te ajudar hoje?`);
+            setTimeout(mainMenu, 1200);
+        };
+
+        input.addEventListener("keydown", e => {
+            if (e.key === "Enter") btn.click();
+        });
+    }
+
+    function mainMenu() {
+        botReply("O que você gostaria de fazer agora?");
+
+        setTimeout(() => {
+            showOptions([
+                { label: "Conhecer os serviços", action: menuProcedimentos },
+                { label: "Não sei por onde começar", action: ajudaInicial },
+                { label: "Horários de atendimento", action: () => replyAndReturn(knowledge.horarios) },
+                { label: "Localização da clínica", action: () => replyAndReturn(knowledge.localizacao) },
+                { label: "Falar com a Gisele Karine", action: whatsapp }
+            ]);
+        }, 800);
+    }
+
+    function ajudaInicial() {
+        botReply("Sem problemas 😊 Me conta: qual é seu principal objetivo hoje?");
+
+        showOptions([
+            { label: "Emagrecer", action: () => mostrarProcedimento("emagrecimento") },
+            { label: "Ganhar massa muscular", action: () => mostrarProcedimento("nutricao_esportiva") },
+            { label: "Melhorar desempenho físico", action: () => mostrarProcedimento("performance") },
+            { label: "Cuidar da saúde", action: () => mostrarProcedimento("nutricao_clinica") }
+        ]);
+    }
+
+
+    function replyAndReturn(text) {
+        botReply(text);
+        setTimeout(mainMenu, 1800);
+    }
+
+    function menuProcedimentos() {
+        botReply(`${userData.nome}, qual procedimento você gostaria de conhecer?`);
+        showOptions(
+            Object.keys(knowledge.procedimentos).map(key => ({
+                label: knowledge.procedimentos[key].nome,
+                action: () => mostrarProcedimento(key)
+            })).concat([{ label: "Voltar", action: mainMenu }])
+        );
+    }
+
+    function mostrarProcedimento(key) {
+        const p = knowledge.procedimentos[key];
+
+        botReply(`🔹 ${p.nome}\n\n${p.descricao}`);
+        setTimeout(() => botReply(`👤 Indicado para:\n${p.indicado}`), 1200);
+        setTimeout(() => botReply(`📝 Como funciona:\n${p.como_funciona}`), 2200);
+
+        setTimeout(() => {
+            showOptions([
+                { label: "Falar com a nutri", action: whatsapp },
+                { label: "Ver outro serviço", action: menuProcedimentos }
+            ]);
+        }, 3400);
+    }
+
+
+    function whatsapp() {
+        botReply(`${userData.nome}, vou te direcionar para o WhatsApp da nutri.`);
+        showOptions([
+            {
+                label: "Ir para o WhatsApp",
+                action: () => window.open(
+                    "https://wa.me/558282139203?text=Olá!%20Gostaria%20de%20agendar%20uma%20consulta.",
+                    "_blank"
+                )
+            },
+            { label: "Voltar", action: mainMenu }
+        ]);
+    }
+
+});

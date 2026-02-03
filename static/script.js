@@ -484,14 +484,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let userData = {};
     let typingEl = null;
+    let scrollTop = 0;
 
-    /* ===============================
-       ABRIR / FECHAR CHAT
-    =============================== */
     function openChat() {
+        scrollTop = window.scrollY;
+
         chatbot.classList.remove("hidden");
         chatOverlay.classList.remove("hidden");
-        document.body.style.overflow = "hidden";
+        document.body.style.top = `-${scrollTop}px`;
+        document.body.classList.add("chat-open");
 
         if (!chatbot.dataset.started) {
             startChat();
@@ -502,7 +503,9 @@ document.addEventListener("DOMContentLoaded", () => {
     function closeChatFn() {
         chatbot.classList.add("hidden");
         chatOverlay.classList.add("hidden");
-        document.body.style.overflow = "";
+        document.body.classList.remove("chat-open");
+        document.body.style.top = "";
+        window.scrollTo(0, scrollTop);
     }
 
     chatToggle.addEventListener("click", openChat);

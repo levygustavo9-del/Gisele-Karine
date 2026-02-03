@@ -417,6 +417,17 @@ body {
 }
 
 /* ================= CHATBOT ================= */
+body.chat-open {
+    position: fixed;
+    width: 100%;
+    overflow: hidden;
+    touch-action: none;
+}
+
+.chat-body,
+.chat-options {
+    overscroll-behavior: contain;
+}
 
 /* BOTÃO FLOANTE */
 .chat-float {
@@ -2245,14 +2256,39 @@ RESPONSIVIDADE DO SITE
 
 }
 
-@media (max-width: 992px) {
+@media (min-width: 768px) and (max-width: 992px) {
 
     .chatbot {
-        width: 300px;
+        width: 380px;
+        bottom: 100px;
+        right: 50%;
+        transform: translateX(50%);
+        border-radius: 18px;
     }
 
     .chat-body {
-        max-height: 240px;
+        max-height: 320px;
+    }
+
+    .chat-header {
+        padding: 14px;
+    }
+
+    .bot,
+    .user {
+        font-size: 15px;
+    }
+
+    .chat-float {
+        width: 60px;
+        height: 60px;
+        bottom: 28px;
+        right: 28px;
+    }
+
+    .chat-float img {
+        width: 46px;
+        height: 46px;
     }
 
     .nav-dropdown {
@@ -2583,34 +2619,21 @@ RESPONSIVIDADE DO SITE
 @media (max-width: 768px) {
 
     .chatbot {
-        width: 92%;
-        right: 4%;
-        left: 4%;
-        bottom: 90px;
-        border-radius: 20px;
+        width: 300px;
+        bottom: 85px;
+        right: 20px;
+    }
+
+    .chat-body {
+        max-height: 240px;
     }
 
     .chat-header span {
-        font-size: 14px;
+        font-size: 15px;
     }
 
     .chat-options button {
-        font-size: 15px;
-        padding: 12px;
-    }
-
-    /* Scroll premium */
-    .chat-options::-webkit-scrollbar {
-        width: 6px;
-    }
-
-    .chat-options::-webkit-scrollbar-track {
-        background: transparent;
-    }
-
-    .chat-options::-webkit-scrollbar-thumb {
-        background-color: var(--span);
-        border-radius: 10px;
+        font-size: 14px;
     }
 
     .header-nav ul {
@@ -2944,46 +2967,37 @@ RESPONSIVIDADE DO SITE
 @media (max-width: 430px) {
 
     .chatbot {
-        width: 100%;
-        right: 0;
-        left: 0;
-        bottom: 0;
-        height: 85vh;
-        border-radius: 20px 20px 0 0;
+        width: 92%;
+        right: 4%;
+        left: auto;
+        bottom: 90px;
+        border-radius: 18px;
     }
 
     .chat-body {
-        max-height: calc(85vh - 190px);
+        max-height: 240px;
     }
 
-    .chat-header {
-        padding: 16px;
+    .bot,
+    .user {
+        font-size: 13.5px;
+    }
+
+    .chat-options button {
+        font-size: 14px;
+        padding: 11px;
     }
 
     .chat-float {
         width: 56px;
         height: 56px;
         right: 18px;
-        bottom: 20px;
+        bottom: 22px;
     }
 
     .chat-float img {
         width: 42px;
         height: 42px;
-    }
-
-    /* Scroll premium */
-    .chat-options::-webkit-scrollbar {
-        width: 6px;
-    }
-
-    .chat-options::-webkit-scrollbar-track {
-        background: transparent;
-    }
-
-    .chat-options::-webkit-scrollbar-thumb {
-        background-color: var(--span);
-        border-radius: 10px;
     }
 
     .dropdown-menu {
@@ -3318,22 +3332,38 @@ RESPONSIVIDADE DO SITE
 
 @media (max-width: 360px) {
 
-    .chat-header strong {
-        font-size: 13px;
+    .chatbot {
+        width: 92%;
+        right: 4%;
+        left: auto;
+        bottom: 90px;
+        border-radius: 18px;
     }
 
-    .chat-header span {
-        font-size: 12px;
+    .chat-body {
+        max-height: 240px;
     }
 
     .bot,
     .user {
-        font-size: 13px;
+        font-size: 13.5px;
     }
 
     .chat-options button {
         font-size: 14px;
-        padding: 10px;
+        padding: 11px;
+    }
+
+    .chat-float {
+        width: 56px;
+        height: 56px;
+        right: 18px;
+        bottom: 22px;
+    }
+
+    .chat-float img {
+        width: 42px;
+        height: 42px;
     }
 
     .dropdown-menu li a {

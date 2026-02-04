@@ -1,5 +1,3 @@
-// === BOTÃO MENU =====
-
 document.addEventListener('DOMContentLoaded', () => {
     const menuToggle = document.querySelector(".menu-toggle");
     const menuClose = document.querySelector(".menu-close");
@@ -8,35 +6,44 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function openMenu() {
         navMenu.classList.add("active");
-        overlay.classList.add("active");
-        document.body.style.overflow = "hidden"; // Trava o scroll
+        menuToggle.classList.add("active"); // Adicionado: Transforma em X
+        if (overlay) overlay.classList.add("active");
+        document.body.style.overflow = "hidden";
     }
 
     function closeMenu() {
         navMenu.classList.remove("active");
-        overlay.classList.remove("active");
-        document.body.style.overflow = ""; // Destrava o scroll
+        menuToggle.classList.remove("active"); // Adicionado: Volta ao normal
+        if (overlay) overlay.classList.remove("active");
+        document.body.style.overflow = "";
     }
 
-    menuToggle.addEventListener("click", openMenu);
+    menuToggle.addEventListener("click", () => {
+        // Se já estiver aberto, fecha. Se não, abre.
+        navMenu.classList.contains("active") ? closeMenu() : openMenu();
+    });
 
-    // Verifica se os elementos existem antes de adicionar o listener
     if (menuClose) menuClose.addEventListener("click", closeMenu);
     if (overlay) overlay.addEventListener("click", closeMenu);
 
-    // Fecha ao clicar em um link
-    document.querySelectorAll(".header-nav a").forEach(link => {
-        link.addEventListener("click", (e) => {
-
-            // NÃO fecha se for toggle de dropdown
-            if (link.classList.contains('dropdown-toggle')) {
-                return;
+    // Lógica de Dropdown para Mobile (Click em vez de Hover)
+    document.querySelectorAll('.dropdown-toggle').forEach(toggle => {
+        toggle.addEventListener('click', (e) => {
+            if (window.innerWidth <= 992) {
+                e.preventDefault();
+                const parent = toggle.closest('.nav-dropdown');
+                parent.classList.toggle('dropdown-active');
             }
-
-            closeMenu();
         });
     });
 
+
+    document.querySelectorAll(".header-nav a").forEach(link => {
+        link.addEventListener("click", (e) => {
+            if (link.classList.contains('dropdown-toggle')) return;
+            closeMenu();
+        });
+    });
 });
 
 /*=== ANIMAÇÃO DO TIMELINE ===*/

@@ -225,175 +225,278 @@ body {
     display: none;
 }
 
-/* ===== BOTÃO MENU ======*/
+/* ===============================
+   BOTÃO MENU HAMBÚRGUER — PREMIUM OTIMIZADO
+================================ */
 
-/* Estilos do Botão Hambúrguer */
+/* Botão Hambúrguer Estilizado */
 .menu-toggle {
     display: none;
-    /* Escondido no Desktop */
+    /* Desktop esconde */
     flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
     gap: 6px;
     cursor: pointer;
-    z-index: 100;
-    flex: 1;
-    /* Para alinhar à esquerda */
+    z-index: 1200;
+    width: 35px;
+    height: 35px;
+    transition: all 0.3s ease;
 }
 
 .menu-toggle span {
-    width: 30px;
+    display: block;
     height: 3px;
     background-color: var(--preto);
-    transition: 0.3s;
+    border-radius: 10px;
+    transition: all 0.4s cubic-bezier(0.68, -0.6, 0.32, 1.6);
+    /* Efeito elástico */
 }
 
+/* Design assimétrico moderno */
+.menu-toggle span:nth-child(1) {
+    width: 30px;
+}
+
+.menu-toggle span:nth-child(2) {
+    width: 22px;
+}
+
+.menu-toggle span:nth-child(3) {
+    width: 30px;
+}
+
+/* Animação para virar "X" quando o menu abrir */
+.menu-toggle.active span:nth-child(1) {
+    transform: translateY(9px) rotate(45deg);
+    width: 30px;
+}
+
+.menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+    transform: translateX(-10px);
+}
+
+.menu-toggle.active span:nth-child(3) {
+    transform: translateY(-9px) rotate(-45deg);
+    width: 30px;
+}
+
+/* ===============================
+   ESTADO ATIVO (Animação para X)
+   Nota: Para funcionar, seu JS deve dar toggle em 'active' 
+   também no container do botão ou no pai comum.
+================================ */
+
+/* Se o seu JS adiciona .active no .header-nav, vamos garantir que o botão mude. 
+   Dica: No seu JS, adicione: menuToggle.classList.toggle("active"); */
+
+.menu-toggle.active span:nth-child(1) {
+    transform: translateY(9px) rotate(45deg);
+    width: 32px;
+}
+
+.menu-toggle.active span:nth-child(2) {
+    opacity: 0;
+    transform: translateX(-20px);
+}
+
+.menu-toggle.active span:nth-child(3) {
+    transform: translateY(-9px) rotate(-45deg);
+    width: 32px;
+}
+
+/* ===============================
+   MOBILE
+================================ */
 @media (max-width: 992px) {
+
+    .icon-menu {
+        display: flex;
+
+        justify-content: center;
+        margin-top: 30px;
+    }
+
+    .icon-menu p {
+
+        width: 100%;
+        background-color: var(--preto);
+        color: #fff;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+
+    .img {
+        
+        display: flex;
+        justify-content: space-around;
+        gap: 30px;
+        margin-top: 30px;
+    }
+
+     .img img {
+        width: 40px;
+    }
+    /* Header */
     .header-content {
         display: grid;
-        /* Mudamos para grid para controle total */
         grid-template-columns: 1fr auto 1fr;
-        /* 3 colunas iguais nas pontas */
         align-items: center;
     }
 
     .menu-toggle {
         display: flex;
         justify-self: start;
-        /* Alinha o botão à esquerda */
     }
 
     .header-logo {
         grid-column: 2;
-        /* Força a logo no meio */
         display: flex;
         justify-content: center;
     }
 
     .header-logo img {
-        width: 130px;
-        /* Reduzi um pouco para o mobile */
+        width: 125px;
     }
 
     .header-cta {
         display: none;
-        /* Some no mobile */
     }
 
-    .menu-footer {
-        display: flex;
-    }
-
-    .menu-close {
-        display: block;
-        margin-right: 25px;
-    }
-
-    /* Estilo do Menu Lateral (Esquerda) */
+    /* ===============================
+       MENU LATERAL
+    ================================ */
     .header-nav {
         position: fixed;
         top: 0;
         left: -100%;
-        width: 65%;
-        /* Um pouco mais largo para respiro visual */
-        max-width: 320px;
+        width: 75%;
+        max-width: 340px;
         height: 100vh;
-        background-color: var(--branco);
-        z-index: 1000;
-        padding: 30px 24px;
-        /* Respiro lateral */
-        transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        background: linear-gradient(180deg,
+                var(--branco) 0%,
+                #f9f9f9 100%);
+        padding: 100px 26px;
+        z-index: 1100;
 
         display: flex;
         flex-direction: column;
+        justify-content: flex-start;
+        /* força tudo para cima */
 
-        /* Sombreamento suave para dar profundidade */
-        box-shadow: 10px 0 30px rgba(0, 0, 0, 0.08);
-    }
-
-    /* Estilização da Lista */
-    .header-nav ul {
-        display: flex;
-        flex-direction: column;
-        gap: 0;
-        /* Vamos usar padding nos links para aumentar a área de clique */
-        margin-top: 40px;
-        padding: 0;
-    }
-
-    .header-nav ul li {
-        list-style: none;
-        border-bottom: 1px solid rgba(0, 0, 0, 0);
-        /* Linha divisória bem sutil */
-    }
-
-    .header-nav ul li a {
-        display: block;
-        padding: 18px 0;
-        color: var(--preto);
-        font-family: var(--fonte-texto);
-        font-size: 1.6rem;
-        font-weight: 500;
-        text-decoration: none;
-        transition: all 0.3s ease;
-    }
-
-    /* Efeito de destaque no link ativo/hover */
-    .header-nav ul li a:hover {
-        color: var(--verde-secundario);
-        padding-left: 8px;
-        /* Pequeno deslize lateral no hover */
-    }
-
-    /* Remove o efeito da barrinha (after) no mobile para ficar mais limpo, 
-       ou ajuste se quiser mantê-lo */
-    .header-nav a::after {
-        display: none;
+        transition: left 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 12px 0 35px rgba(0, 0, 0, 0.12);
     }
 
     .header-nav.active {
         left: 0;
     }
 
-    /* Botão de Fechar mais elegante */
-    .menu-close {
-        align-self: flex-end;
-        font-size: 3rem;
-        color: var(--preto);
-        cursor: pointer;
-        width: 40px;
-        height: 40px;
+    /* ===============================
+       LISTA DO MENU
+    ================================ */
+    .header-nav ul {
+        margin-top: 24px;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+    }
+
+
+    .header-nav ul li {
+        border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+    }
+
+    .header-nav ul li a {
         display: flex;
         align-items: center;
-        justify-content: center;
-        background-color: var(--cinza-claro);
-        border-radius: 50%;
-        transition: 0.3s;
+
+
+        padding: 20px 4px;
+        font-size: 1.6rem;
+        font-weight: 500;
+        font-family: var(--fonte-texto);
+        color: var(--preto);
+        text-decoration: none;
+
+        transition: color 0.3s ease, padding-left 0.3s ease;
     }
 
-    .menu-close:hover {
-        background-color: var(--verde-principal);
-        transform: rotate(90deg);
+    .header-nav ul li a:hover {
+        color: var(--verde-secundario);
+        padding-left: 12px;
     }
 
-    /* Overlay (Fundo escuro) */
+    .header-nav a::after {
+        display: none;
+    }
+
+    /* ===============================
+   DROPDOWN MOBILE — FINAL
+================================ */
+
+    .nav-dropdown {
+        position: relative;
+    }
+
+    .dropdown-menu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+
+        width: 100%;
+        padding-left: 12px;
+
+        background: transparent;
+
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+
+        transition: max-height 0.35s ease, opacity 0.25s ease;
+    }
+
+    .dropdown-menu li {
+        background-color: #e0e0e083;
+        padding: 5px
+    }
+
+    /* Abre sem empurrar pra cima */
+    .nav-dropdown.dropdown-active .dropdown-menu {
+        max-height: 280px;
+        opacity: 1;
+    }
+
+    /* Reserva espaço só quando aberto */
+    .nav-dropdown.dropdown-active {
+        padding-bottom: 20px;
+    }
+
+    .nav-dropdown.dropdown-active .dropdown-arrow {
+        transform: rotate(180deg);
+    }
+
+
+    /* ===============================
+       OVERLAY PREMIUM
+    ================================ */
     .menu-overlay {
         position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.4);
+        inset: 0;
         opacity: 0;
         visibility: hidden;
-        transition: 0.3s;
-        z-index: 999;
+        transition: opacity 0.4s ease;
+        z-index: 1000;
     }
 
     .menu-overlay.active {
         opacity: 1;
-        visibility: visible;
+
     }
 }
 
+/* ================= CTA BUTTON ================= */
 .cta-button {
     background-color: var(--verde-secundario);
     color: var(--preto);
@@ -3402,7 +3505,7 @@ RESPONSIVIDADE DO SITE
         padding-left: 10px;
     }
 
-     :root {
+    :root {
         --header-height: 170px;
     }
 
@@ -3418,7 +3521,7 @@ RESPONSIVIDADE DO SITE
         padding: 11px 30px;
         font-size: 0.8rem;
     }
-   
+
     .linha-hero {
         width: 70%;
         margin-left: 0;

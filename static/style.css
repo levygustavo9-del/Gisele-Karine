@@ -20,6 +20,8 @@
     --fonte-titulo: "DM Sans", sans-serif;
     --fonte-elegante: "Playfair Display", serif;
     --fonte-texto: "Quicksand", sans-serif;
+
+    --header-height: 330px;
 }
 
 html,
@@ -267,7 +269,7 @@ body {
     }
 
     .header-logo img {
-        width: 140px;
+        width: 130px;
         /* Reduzi um pouco para o mobile */
     }
 
@@ -732,13 +734,13 @@ body.chat-open {
 .hero-section {
     position: relative;
     width: 100%;
-    min-height: 111vh;
+    min-height: 80vh;
 
     display: flex;
     align-items: center;
 
-    padding: 0 6%;
-    margin-top: 12%;
+    padding-left: 6%;
+    padding-top: calc(var(--header-height) - 10px);
 
     background-image:
         linear-gradient(to right,
@@ -754,15 +756,14 @@ body.chat-open {
 
 /* HERO CONTENT */
 .hero-content {
-    margin-top: 20px;
-    position: absolute;
+    margin-top: 0px;
     max-width: 600px;
     z-index: 2;
 }
 
 .hero-content h1 {
     font-family: var(--fonte-titulo);
-    font-size: 4.2rem;
+    font-size: 3.5rem;
     font-weight: 700;
     color: var(--branco);
     line-height: 1.5;
@@ -783,7 +784,7 @@ body.chat-open {
 .linha-hero {
     width: 100%;
     height: 3px;
-    margin: 24px auto 40px;
+    margin: 15px auto 00px;
     background: linear-gradient(90deg,
             transparent,
             var(--verde-secundario),
@@ -805,6 +806,7 @@ body.chat-open {
 
     padding: 14px 48px;
     border-radius: 999px;
+    margin-bottom: 50px;
 
     text-decoration: none;
     font-weight: 600;
@@ -2129,16 +2131,20 @@ RESPONSIVIDADE DO SITE
         bottom: 36px;
     }
 
+    :root {
+        --header-height: 280px;
+    }
+
     .header-content {
-        padding: 16px 20px;
+        padding: 0cqi 20px;
     }
 
     .hero-content h1 {
-        font-size: 3rem;
+        font-size: 3.5rem;
     }
 
     .hero-content p {
-        font-size: 1.4rem;
+        font-size: 1.8rem;
     }
 
     .dropdown-menu {
@@ -2360,31 +2366,28 @@ RESPONSIVIDADE DO SITE
     }
 
     /* HERO */
-    .hero-section {
-        margin-top: 20%;
-        min-height: 50vh;
-        background-position: center;
-        padding: 0 5%;
+    :root {
+        --header-height: 70px;
     }
 
     .hero-content {
-        position: relative;
-        max-width: 100%;
-        margin-bottom: 50px;
+        max-width: 520px;
     }
 
     .hero-content h1 {
-        font-size: 3rem;
+        font-size: 2.8rem;
     }
 
     .hero-content p {
-        font-size: 1.8rem;
+        font-size: 1.6rem;
     }
 
-    .linha-hero {
-        width: 70%;
-        margin-left: 0;
-        margin-right: auto;
+    .hero-button {
+        margin-bottom: 10px;
+    }
+
+    .hero-section {
+        background-position: 70% center;
     }
 
     .hero-section {
@@ -2565,7 +2568,9 @@ RESPONSIVIDADE DO SITE
         display: none;
     }
 
-    .container-quem {
+    .container-quem,
+    .container-missao {
+        display: grid;
         margin-top: 12%;
         grid-template-columns: 1fr;
         gap: 60px;
@@ -2584,20 +2589,14 @@ RESPONSIVIDADE DO SITE
 
     .dados-quem,
     .dados-missao {
+        display: flex;
         justify-content: center;
-        flex-wrap: wrap;
         gap: 30px;
-    }
-
-    .container-missao {
-        flex-direction: column;
-        gap: 60px;
-        text-align: center;
     }
 
     .foto-quem,
     .foto-missao {
-        height: 520px;
+        height: 620px;
         max-width: 90%;
         margin: auto;
     }
@@ -2636,6 +2635,7 @@ RESPONSIVIDADE DO SITE
         font-size: 14px;
     }
 
+
     .header-nav ul {
         gap: 2px;
         margin-top: 10px;
@@ -2664,24 +2664,27 @@ RESPONSIVIDADE DO SITE
         font-size: 0.85rem;
     }
 
-    /* HERO */
+    :root {
+        --header-height: 190px;
+    }
+
     .hero-section {
-        margin-top: 20%;
-        min-height: 60vh;
-        align-items: flex-end;
-        padding-bottom: 80px;
+        padding-left: 5%;
+        background-position: 78% center;
     }
 
     .hero-content h1 {
-        margin-top: 30px;
-        font-size: 3rem;
-        line-height: 1.35;
+        font-size: 2.4rem;
+        line-height: 1.4;
     }
 
     .hero-content p {
-        max-width: 90%;
         font-size: 1.4rem;
-        line-height: 2;
+    }
+
+    .hero-button {
+        padding: 12px 36px;
+        font-size: 0.85rem;
     }
 
     .hero-section {
@@ -2698,7 +2701,10 @@ RESPONSIVIDADE DO SITE
     }
 
     .linha-hero {
-        width: 40%;
+        width: 70%;
+        margin-left: 0;
+        margin-right: auto;
+        margin: 1px 0 1px;
     }
 
     .cards-grid {
@@ -2922,8 +2928,13 @@ RESPONSIVIDADE DO SITE
         display: none;
     }
 
-    .container-quem {
-        margin-top: 22%;
+    .container-quem,
+    .container-missao {
+        display: grid;
+        margin-top: 12%;
+        grid-template-columns: 1fr;
+        gap: 60px;
+        text-align: center;
     }
 
     .quem-sou-eu,
@@ -3016,30 +3027,38 @@ RESPONSIVIDADE DO SITE
         font-size: 0.6em;
     }
 
-    /* HERO */
-    .hero-section {
-        margin-top: 31%;
-        padding: 20px 6%;
+    :root {
+        --header-height: 180px;
     }
 
-    .hero-content {
-        margin-top: 40px;
+    .hero-section {
+        padding-left: 6%;
+        background-position: 88% center;
     }
 
     .hero-content h1 {
-        font-size: 1.6rem;
+        max-width: 230px;
+        font-size: 2.05rem;
     }
 
     .hero-content p {
-        max-width: 90%;
-        font-size: 1rem;
-        line-height: 1.6;
-        padding-right: 22px;
+        font-size: 1.25rem;
+    }
+
+    .linha-hero {
+        margin: 12px auto 18px;
     }
 
     .hero-button {
         padding: 14px 34px;
         font-size: 0.85rem;
+    }
+
+    .linha-hero {
+        width: 70%;
+        margin-left: 0;
+        margin-right: auto;
+        margin: 1px 0 1px;
     }
 
     .hero-section {
@@ -3285,8 +3304,13 @@ RESPONSIVIDADE DO SITE
         height: 42px;
     }
 
-    .container-quem {
-        margin-top: 22%;
+    .container-quem,
+    .container-missao {
+        display: grid;
+        margin-top: 12%;
+        grid-template-columns: 1fr;
+        gap: 60px;
+        text-align: center;
     }
 
     .texto-quem h2,
@@ -3378,21 +3402,30 @@ RESPONSIVIDADE DO SITE
         padding-left: 10px;
     }
 
-    .hero-section {
-        margin-top: 35%;
+     :root {
+        --header-height: 170px;
     }
 
     .hero-content h1 {
-        font-size: 1.7rem;
+        font-size: 1.9rem;
     }
 
     .hero-content p {
-        font-size: 1rem;
+        font-size: 1.15rem;
     }
 
     .hero-button {
-        padding: 12px 30px;
+        padding: 11px 30px;
+        font-size: 0.8rem;
     }
+   
+    .linha-hero {
+        width: 70%;
+        margin-left: 0;
+        margin-right: auto;
+        margin: 1px 0 1px;
+    }
+
 
     .quem-header h2 {
         font-size: 1.8rem;
@@ -3501,8 +3534,13 @@ RESPONSIVIDADE DO SITE
         height: 30px;
     }
 
-    .container-quem {
-        margin-top: 22%;
+    .container-quem,
+    .container-missao {
+        display: grid;
+        margin-top: 12%;
+        grid-template-columns: 1fr;
+        gap: 60px;
+        text-align: center;
     }
 
     .texto-quem h2,

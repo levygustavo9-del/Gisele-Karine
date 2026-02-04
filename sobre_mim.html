@@ -176,6 +176,31 @@
 
     </main>
 
+    <!-- BOTÃO FLUTUANTE -->
+    <div class="chat-float" id="chatToggle">
+        <span><img src="static/icones/assistente.png" alt="icone-menssagem"></span>
+    </div>
+
+    <!-- Overlay para escurecer o fundo -->
+    <div class="chat-overlay hidden" id="chatOverlay"></div>
+
+    <!-- CHATBOT -->
+    <div class="chatbot hidden" id="chatbot">
+        <div class="chat-header">
+            <div>
+                <strong>Assistente Virtual</strong>
+                <span>Gisele Karine</span>
+            </div>
+            <button id="clearChat" title="Limpar conversa">Limpar conversa</button>
+
+            <button id="closeChat">✕</button>
+        </div>
+
+        <div class="chat-body" id="chatBody"></div>
+        <div class="chat-options" id="chatOptions"></div>
+
+    </div>
+
     <!-- ====== FOOTER ======-->
     <footer class="footer">
         <div class="footer-container">
@@ -233,14 +258,6 @@
             © 2026 — <strong>Nutricionista</strong> | Todos os direitos reservados.
         </div>
     </footer>
-
-    <!-- BOTÃO WHATSAPP FLUTUANTE -->
-    <a href="https://wa.me/558282139203?text=Olá!%20Gostaria%20de%20agendar%20uma%20consulta." class="chat-float"
-        target="_blank" aria-label="Falar no WhatsApp">
-        <img src="static/icones/whatsapp (1).png" alt="WhatsApp">
-    </a>
-
-
 
     <!-- Swiper JS -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>

@@ -1,21 +1,38 @@
+let menuOpen = false;
+let isUserInteracting = false;
+
+
 document.addEventListener('DOMContentLoaded', () => {
     const menuToggle = document.querySelector(".menu-toggle");
     const menuClose = document.querySelector(".menu-close");
     const navMenu = document.querySelector(".header-nav");
     const overlay = document.querySelector(".menu-overlay");
 
+
     function openMenu() {
         navMenu.classList.add("active");
         menuToggle.classList.add("active"); // Adicionado: Transforma em X
         if (overlay) overlay.classList.add("active");
-        document.body.style.overflow = "hidden";
+        const scrollY = window.scrollY;
+        document.body.style.position = "fixed";
+        document.body.style.top = `-${scrollY}px`;
+        document.body.style.width = "100%";
+        document.body.dataset.scrollY = scrollY;
+        menuOpen = true
+
     }
 
     function closeMenu() {
         navMenu.classList.remove("active");
         menuToggle.classList.remove("active"); // Adicionado: Volta ao normal
         if (overlay) overlay.classList.remove("active");
-        document.body.style.overflow = "";
+        const scrollY = document.body.dataset.scrollY || 0;
+        document.body.style.position = "";
+        document.body.style.top = "";
+        document.body.style.width = "";
+        window.scrollTo(0, scrollY);
+        menuOpen = false
+
     }
 
     menuToggle.addEventListener("click", () => {
@@ -394,6 +411,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let scrollTimeout;
     let isInteracting = false;
 
+
     const showHeader = () => {
         header.classList.add("is-visible");
         header.classList.remove("is-hidden");
@@ -406,6 +424,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     window.addEventListener("scroll", () => {
         const currentScroll = window.scrollY;
+
+        // 🔒 Se menu estiver aberto ou usuário interagindo, congela o header
+        if (menuOpen || isUserInteracting) {
+            lastScrollY = currentScroll;
+            return;
+        }
+
 
         // Sempre visível no topo
         if (currentScroll <= 10) {
@@ -438,10 +463,11 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // Interação (desktop + mobile)
-    header.addEventListener("mouseenter", () => isInteracting = true);
-    header.addEventListener("mouseleave", () => isInteracting = false);
-    header.addEventListener("touchstart", () => isInteracting = true);
-    header.addEventListener("touchend", () => isInteracting = false);
+    header.addEventListener("mouseenter", () => isUserInteracting = true);
+    header.addEventListener("mouseleave", () => isUserInteracting = false);
+    header.addEventListener("touchstart", () => isUserInteracting = true);
+    header.addEventListener("touchend", () => isUserInteracting = false);
+    ;
 
     // Estado inicial
     header.classList.add("is-fixed", "is-visible");

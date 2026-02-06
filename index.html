@@ -81,14 +81,13 @@
 
         <div class="hero-content">
             <h1>Cuidar do seu corpo hoje é investir na <span>sua melhor versão.</span></h1>
-            <p>Nutricionista clínica, fitoterápica e esportiva e personal trainer.</p>
+            <p>Nutricionista clínica, fitoterápica, esportiva e personal trainer.</p>
 
             <br>
             <hr class="linha-hero">
             <br>
 
-            <a href="https://wa.me/558282139203?text=Olá!%20Gostaria%20de%20agendar%20uma%20consulta."
-                class="hero-button" target="_blank">Marcar Consulta</a>
+            <a href="#" class="hero-button open-whatsapp-form" target=" _blank">Marcar Consulta</a>
         </div>
 
     </section>
@@ -529,6 +528,33 @@
         <div class="chat-options" id="chatOptions"></div>
 
     </div>
+
+    <!-- === ABRIR FORMULÁRIO PARA ENVIAR ====-->
+
+    <div class="whatsapp-modal-overlay" id="whatsappModal">
+    <div class="whatsapp-modal">
+        <button class="close-modal">×</button>
+
+        <h3>Agendamento de Consulta</h3>
+
+        <form id="whatsappForm">
+            <input type="text" id="nome" placeholder="Seu nome" required>
+
+            <select id="servico" required>
+                <option value="">Selecione o serviço</option>
+                <option>Nutrição Esportiva</option>
+                <option>Emagrecimento</option>
+                <option>Avaliação Corporal</option>
+                <option>Performance</option>
+            </select>
+
+            <textarea id="objetivo" placeholder="Qual seu principal objetivo?" required></textarea>
+
+            <button type="submit">Enviar para WhatsApp</button>
+        </form>
+    </div>
+</div>
+
 
 
     <!-- ====== FOOTER ======-->

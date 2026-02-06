@@ -783,3 +783,42 @@ Maceió – AL | CEP: 57.100-000
     }
 
 });
+
+// ====== MODAL PARA ABRIR FORMULÁRIO ANTES DE IR PARA O WHATSAPP ======
+
+const modal = document.getElementById("whatsappModal");
+const openBtns = document.querySelectorAll(".open-whatsapp-form");
+const closeBtn = document.querySelector(".close-modal");
+const form = document.getElementById("whatsappForm");
+
+openBtns.forEach(btn => {
+    btn.addEventListener("click", e => {
+        e.preventDefault();
+        modal.classList.add("active");
+    });
+});
+
+closeBtn.addEventListener("click", () => {
+    modal.classList.remove("active");
+});
+
+form.addEventListener("submit", e => {
+    e.preventDefault();
+
+    const nome = document.getElementById("nome").value;
+    const servico = document.getElementById("servico").value;
+    const objetivo = document.getElementById("objetivo").value;
+
+    const mensagem = `
+Olá! Me chamo ${nome}.
+Tenho interesse em ${servico}.
+Meu objetivo é: ${objetivo}.
+    `;
+
+    const telefone = "558282139203";
+    const url = `https://wa.me/${telefone}?text=${encodeURIComponent(mensagem)}`;
+
+    window.open(url, "_blank");
+    modal.classList.remove("active");
+    form.reset();
+});

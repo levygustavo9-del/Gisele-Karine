@@ -796,7 +796,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // ⏱️ tempos configuráveis
     const SHOW_DELAY = 4500; // 4.5 segundos
-    const HIDE_DELAY = 6000; // tempo visível após aparecer
+    const HIDE_DELAY = 5000; // tempo visível após aparecer
 
     // Mostra o tooltip após alguns segundos
     setTimeout(() => {

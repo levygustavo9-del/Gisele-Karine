@@ -217,67 +217,6 @@ body {
     box-shadow: none;
 }
 
-/* ===== modal de preencheer formulário antes do zap*/
-
-.whatsapp-modal-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,.6);
-    display: none;
-    align-items: center;
-    justify-content: center;
-    z-index: 9999;
-}
-
-.whatsapp-modal-overlay.active {
-    display: flex;
-}
-
-.whatsapp-modal {
-    background: #fff;
-    padding: 32px;
-    max-width: 420px;
-    width: 90%;
-    border-radius: 18px;
-    position: relative;
-}
-
-.whatsapp-modal h3 {
-    margin-bottom: 20px;
-}
-
-.whatsapp-modal input,
-.whatsapp-modal select,
-.whatsapp-modal textarea {
-    width: 100%;
-    margin-bottom: 14px;
-    padding: 12px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
-}
-
-.whatsapp-modal button {
-    width: 100%;
-    padding: 14px;
-    border: none;
-    border-radius: 10px;
-    background: #25D366;
-    color: #fff;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.close-modal {
-    position: absolute;
-    top: 10px;
-    right: 14px;
-    background: none;
-    font-size: 22px;
-    border: none;
-    cursor: pointer;
-}
-
-
 .menu-footer {
     display: none;
 }
@@ -727,6 +666,53 @@ body.chat-open {
     margin-top: 8px;
     font-size: 22px;
 }
+
+/* ===== TOOLTIP DO CHATBOT ===== */
+.chatbot-tooltip {
+    position: fixed;
+    bottom: 90px;
+    right: 20px;
+
+    background: #ffffff;
+    color: #333;
+    padding: 10px 14px;
+    border-radius: 14px;
+    font-size: 14px;
+    line-height: 1.4;
+    max-width: 220px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    z-index: 999;
+
+    opacity: 0;
+    transform: translateY(8px);
+    pointer-events: none;
+
+    transition:
+        opacity 0.35s ease,
+        transform 0.35s ease;
+}
+
+/* Tooltip visível */
+.chatbot-tooltip.show {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+/* Setinha */
+.chatbot-tooltip::after {
+    content: "";
+    position: absolute;
+    bottom: -8px;
+    right: 22px;
+    border-width: 8px 8px 0 8px;
+    border-style: solid;
+    border-color: #ffffff transparent transparent transparent;
+}
+
+
+/*==================== FIM TOOLIP *=======================*/
+
 
 @keyframes pulse-light {
     0% {
@@ -2551,6 +2537,10 @@ RESPONSIVIDADE DO SITE
         height: 46px;
     }
 
+    .chatbot-tooltip {
+     font-size: 1.3em;
+    }
+
     .nav-dropdown {
         display: block;
         overflow: hidden;
@@ -2890,6 +2880,9 @@ RESPONSIVIDADE DO SITE
         font-size: 14px;
     }
 
+    .chatbot-tooltip {
+     font-size: 1.2em;
+    }
 
     .header-nav ul {
         gap: 2px;
@@ -3256,15 +3249,19 @@ RESPONSIVIDADE DO SITE
     }
 
     .chat-float {
-        width: 56px;
-        height: 56px;
+        width: 66px;
+        height: 66px;
         right: 18px;
         bottom: 22px;
     }
 
     .chat-float img {
-        width: 42px;
-        height: 42px;
+        width: 52px;
+        height: 52px;
+    }
+
+    .chatbot-tooltip {
+     font-size: 1em;
     }
 
     .dropdown-menu {

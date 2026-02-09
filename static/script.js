@@ -504,6 +504,7 @@ function showOptions(options) {
 // ===== FLUXOS =====
 document.addEventListener("DOMContentLoaded", () => {
 
+
     /* ===============================
        ELEMENTOS
     =============================== */
@@ -570,7 +571,7 @@ document.addEventListener("DOMContentLoaded", () => {
     =============================== */
     const knowledge = {
         intro: `
-Olá! Sou a assistente virtual da Nutri Gisele Karine.
+Que bom ter você aqui! Sou a assistente virtual da Nutri Gisele Karine.
 Estou aqui para te orientar sobre os serviços nutricionais
 e esclarecer suas dúvidas iniciais.
     `,
@@ -784,41 +785,34 @@ Maceió – AL | CEP: 57.100-000
 
 });
 
-// ====== MODAL PARA ABRIR FORMULÁRIO ANTES DE IR PARA O WHATSAPP ======
+document.addEventListener("DOMContentLoaded", () => {
 
-const modal = document.getElementById("whatsappModal");
-const openBtns = document.querySelectorAll(".open-whatsapp-form");
-const closeBtn = document.querySelector(".close-modal");
-const form = document.getElementById("whatsappForm");
+    // TOOLTIP DO CHATBOT
 
-openBtns.forEach(btn => {
-    btn.addEventListener("click", e => {
-        e.preventDefault();
-        modal.classList.add("active");
-    });
-});
+    const tooltip = document.getElementById("chatbotTooltip");
+    const chatToggle = document.getElementById("chatToggle");
 
-closeBtn.addEventListener("click", () => {
-    modal.classList.remove("active");
-});
+    if (!tooltip) return;
 
-form.addEventListener("submit", e => {
-    e.preventDefault();
+    // ⏱️ tempos configuráveis
+    const SHOW_DELAY = 4500; // 4.5 segundos
+    const HIDE_DELAY = 6000; // tempo visível após aparecer
 
-    const nome = document.getElementById("nome").value;
-    const servico = document.getElementById("servico").value;
-    const objetivo = document.getElementById("objetivo").value;
+    // Mostra o tooltip após alguns segundos
+    setTimeout(() => {
+        tooltip.classList.add("show");
+    }, SHOW_DELAY);
 
-    const mensagem = `
-Olá! Me chamo ${nome}.
-Tenho interesse em ${servico}.
-Meu objetivo é: ${objetivo}.
-    `;
+    // Esconde suavemente depois
+    const autoHide = setTimeout(() => {
+        tooltip.classList.remove("show");
+    }, SHOW_DELAY + HIDE_DELAY);
 
-    const telefone = "558282139203";
-    const url = `https://wa.me/${telefone}?text=${encodeURIComponent(mensagem)}`;
-
-    window.open(url, "_blank");
-    modal.classList.remove("active");
-    form.reset();
+    // Clique no chat esconde imediatamente
+    if (chatToggle) {
+        chatToggle.addEventListener("click", () => {
+            clearTimeout(autoHide);
+            tooltip.classList.remove("show");
+        });
+    }
 });

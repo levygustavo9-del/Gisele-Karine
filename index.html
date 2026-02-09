@@ -509,6 +509,11 @@
         <span><img src="static/icones/assistente.png" alt="icone-menssagem"></span>
     </div>
 
+    <!-- TOOLTIP DO CHATBOT -->
+    <div id="chatbotTooltip" class="chatbot-tooltip show">
+        👋 Olá! Sou o assistente virtual.
+    </div>
+
     <!-- Overlay para escurecer o fundo -->
     <div class="chat-overlay hidden" id="chatOverlay"></div>
 
@@ -528,34 +533,6 @@
         <div class="chat-options" id="chatOptions"></div>
 
     </div>
-
-    <!-- === ABRIR FORMULÁRIO PARA ENVIAR ====-->
-
-    <div class="whatsapp-modal-overlay" id="whatsappModal">
-    <div class="whatsapp-modal">
-        <button class="close-modal">×</button>
-
-        <h3>Agendamento de Consulta</h3>
-
-        <form id="whatsappForm">
-            <input type="text" id="nome" placeholder="Seu nome" required>
-
-            <select id="servico" required>
-                <option value="">Selecione o serviço</option>
-                <option>Nutrição Esportiva</option>
-                <option>Emagrecimento</option>
-                <option>Avaliação Corporal</option>
-                <option>Performance</option>
-            </select>
-
-            <textarea id="objetivo" placeholder="Qual seu principal objetivo?" required></textarea>
-
-            <button type="submit">Enviar para WhatsApp</button>
-        </form>
-    </div>
-</div>
-
-
 
     <!-- ====== FOOTER ======-->
     <footer class="footer">

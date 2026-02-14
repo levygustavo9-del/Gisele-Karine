@@ -264,10 +264,11 @@ document.addEventListener("DOMContentLoaded", function () {
             title: "Avaliação Corporal",
             description: "Análise detalhada da composição corporal para decisões nutricionais assertivas.",
             benefits: [
-                "Diagnóstico preciso",
+                "Avaliação precisa de dobras e bioimpedancia",
                 "Acompanhamento da evolução",
                 "Ajustes estratégicos",
-                "Resultados mensuráveis"
+                "Resultados mensuráveis",
+                "Tratamento de doenças crônicas não transmisisveis"
             ]
         },
         {
@@ -278,6 +279,26 @@ document.addEventListener("DOMContentLoaded", function () {
                 "Recuperação otimizada",
                 "Prevenção de lesões",
                 "Mais consistência nos treinos"
+            ]
+        },
+        {
+            title: "Nutrição Clínica ",
+            description: "Acompanhamento nutricional para prevenção e controle de doenças crônicas.",
+            benefits: [
+                "controle de diabetes, hipertensão, doenças cardiovasculares e etc.",
+                "Anamnese detalhada",
+                "Tratamento suplementar e Fitoterápico",
+                "Mais qualidade de vida"
+            ]
+        },
+        {
+            title: "Nutrição e Saúde mental",
+            description: "Estratégias nutricionais para auxiliar no equilíbrio emocional e cognitivo.",
+            benefits: [
+                "Redução dos sintomas de ansiedade e depressão",
+                "Reequilíbrio da microbiota (disbiose, SIBO e SII)",
+                "Controle do estresse crônico e Burnout",
+                "Suporte nutricional no TEA, favorecendo foco e comportamento"
             ]
         }
     ];
@@ -409,7 +430,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     let lastScrollY = window.scrollY;
     let scrollTimeout;
-    let isInteracting = false;
+    let isUserInteracting = false;
+
 
 
     const showHeader = () => {
@@ -443,12 +465,13 @@ document.addEventListener("DOMContentLoaded", () => {
         header.classList.add("is-fixed");
 
         // Scroll para baixo → esconde
-        if (currentScroll > lastScrollY && !isInteracting) {
+        if (currentScroll > lastScrollY && !isUserInteracting) {
             hideHeader();
         }
 
         // Scroll para cima → mostra
-        if (currentScroll < lastScrollY - 10 && !isInteracting) {
+        // Scroll para cima → mostra
+        if (currentScroll < lastScrollY - 10 && !isUserInteracting) {
             showHeader();
         }
 
@@ -456,7 +479,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
         clearTimeout(scrollTimeout);
         scrollTimeout = setTimeout(() => {
-            if (!isInteracting && window.scrollY > 10) {
+            if (!isUserInteracting && window.scrollY > 10) {
                 hideHeader();
             }
         }, 1500);
@@ -612,19 +635,17 @@ Maceió – AL | CEP: 57.100-000
                 indicado: "Atletas e praticantes de atividade física que buscam aumento de força, resistência e desempenho.",
                 como_funciona: "A nutrição é ajustada conforme volume de treino, competição, descanso e necessidades energéticas."
             },
-
-            reeducacao_alimentar: {
-                nome: "Reeducação Alimentar",
-                descricao: "Construção de hábitos alimentares saudáveis e sustentáveis.",
-                indicado: "Pessoas que desejam melhorar a relação com a comida e manter resultados a longo prazo.",
-                como_funciona: "O acompanhamento é feito de forma gradual, respeitando a rotina e preferências alimentares."
-            },
-
             nutricao_clinica: {
                 nome: "Nutrição Clínica",
-                descricao: "Acompanhamento nutricional para promoção da saúde e controle de condições metabólicas.",
-                indicado: "Pessoas com alterações metabólicas, digestivas ou que buscam mais qualidade de vida.",
-                como_funciona: "O atendimento é baseado em avaliação clínica, exames e planejamento alimentar individualizado."
+                descricao: "Acompanhamento nutricional para prevenção e controle de doenças crônicas.",
+                indicado: "Pessoas que desejam prevenir ou controlar diabetes, hipertensão, doenças cardiovasculares e outras condições crônicas.",
+                como_funciona: "Inclui anamnese detalhada, tratamento suplementar e fitoterápico, além de acompanhamento contínuo para melhoria da qualidade de vida."
+            },
+            nutricao_saude_mental: {
+                nome: "Nutrição e Saúde Mental",
+                descricao: "Estratégias nutricionais para auxiliar no equilíbrio emocional e cognitivo.",
+                indicado: "Pessoas que buscam redução de sintomas de ansiedade, depressão e estresse, além de suporte nutricional para melhora da função cognitiva.",
+                como_funciona: "O acompanhamento inclui ajustes alimentares voltados para reequilíbrio da microbiota, controle do estresse e suporte nutricional em condições específicas."
             }
         }
     };
@@ -816,3 +837,25 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 });
+
+// ANIMAÇÃO SUAVE
+
+const reveals = document.querySelectorAll('.reveal');
+
+const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+            revealObserver.unobserve(entry.target);
+        }
+    });
+}, {
+    threshold: 0.15,
+    rootMargin: '0px 0px -80px 0px'
+});
+
+reveals.forEach(el => revealObserver.observe(el));
+
+if (reveals.length > 0) {
+    reveals.forEach(el => revealObserver.observe(el));
+}

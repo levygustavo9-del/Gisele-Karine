@@ -21,7 +21,7 @@
     --fonte-elegante: "Playfair Display", serif;
     --fonte-texto: "Quicksand", sans-serif;
 
-    --header-height: 330px;
+    --header-height: 270px;
 }
 
 html,
@@ -38,6 +38,79 @@ body {
     color: var(--preto);
     line-height: 1.6;
 }
+
+/* ========  ANIMAÇÃO SUAVE ===========*/
+
+.reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition:
+        opacity 0.8s ease,
+        transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform, opacity;
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.reveal-title {
+    transform: translateY(60px);
+    transition-duration: 1s;
+}
+
+.cards-grid .reveal-card {
+    opacity: 0;
+    transform: translateY(100px);
+    transition:
+        opacity 0.6s ease,
+        transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.cards-grid .reveal-card.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Delay progressivo */
+.cards-grid .reveal-card:nth-child(1) {
+    transition-delay: 0.1s;
+}
+
+.cards-grid .reveal-card:nth-child(2) {
+    transition-delay: 0.2s;
+}
+
+.cards-grid .reveal-card:nth-child(3) {
+    transition-delay: 0.3s;
+}
+
+.cards-grid .reveal-card:nth-child(4) {
+    transition-delay: 0.4s;
+}
+
+.cards-grid .reveal-card:nth-child(5) {
+    transition-delay: 0.1s;
+}
+
+.cards-grid .reveal-card:nth-child(6) {
+    transition-delay: 0.2s;
+}
+
+.cards-grid .reveal-card:nth-child(7) {
+    transition-delay: 0.3s;
+}
+
+.cards-grid .reveal-card:nth-child(8) {
+    transition-delay: 0.4s;
+}
+
+
+.reveal-fade {
+    transform: none;
+}
+
 
 /* ================= HEADER ================= */
 .header {
@@ -71,7 +144,7 @@ body {
 .header-content {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 18px 24px;
+    padding: 0px 24px;
 
     display: flex;
     align-items: center;
@@ -181,19 +254,24 @@ body {
 .dropdown-menu {
     position: absolute;
     top: 100%;
-    left: 0;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+
     background: #fff;
     border-radius: 12px;
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.12);
-    padding: 10px 0;
+
+    padding: 15px 20px;
     min-width: 220px;
+    max-width: 95vw;
+    /* nunca passa da tela */
 
     opacity: 0;
     visibility: hidden;
-    transform: translateY(10px);
     transition: all 0.3s ease;
     z-index: 999;
 }
+
 
 .dropdown-menu li a {
     display: block;
@@ -202,6 +280,13 @@ body {
     font-size: 0.95rem;
     white-space: nowrap;
 }
+
+.nav-dropdown:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
 
 .dropdown-menu li a:hover {
     background: var(--cinza-claro);
@@ -987,11 +1072,25 @@ body.chat-open {
             rgba(0, 0, 0, 0.65),
             rgba(0, 0, 0, 0.35),
             rgba(0, 0, 0, 0.1)),
-        url("imgs/hero-img.png");
+        url("imgs/bg-hero.png");
 
     background-repeat: no-repeat;
     background-size: cover;
     background-position: right center;
+}
+
+/* Overlay escuro premium */
+.hero-section::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background: linear-gradient(to right,
+            rgba(0, 0, 0, 0.575),
+            rgba(0, 0, 0, 0.45),
+            rgba(0, 0, 0, 0.15));
+
+    z-index: 1;
 }
 
 /* HERO CONTENT */
@@ -1003,8 +1102,8 @@ body.chat-open {
 
 .hero-content h1 {
     font-family: var(--fonte-titulo);
-    font-size: 3.5rem;
-    font-weight: 700;
+    font-size: 4rem;
+    font-weight: 500;
     color: var(--branco);
     line-height: 1.5;
 }
@@ -1016,7 +1115,8 @@ body.chat-open {
 .hero-content p {
     margin-top: 14px;
     font-size: 2rem;
-    font-family: var(--fonte-elegante);
+    font-weight: 200;
+    font-family: var(--fonte-titulo);
     color: rgba(255, 255, 255, 0.9);
 }
 
@@ -1040,13 +1140,14 @@ body.chat-open {
 
     display: inline-block;
 
-    background-color: transparent;
+    background-color: var(--verde-secundario);
     border: 2px solid var(--verde-principal);
     color: var(--branco);
 
     padding: 14px 48px;
     border-radius: 999px;
     margin-bottom: 50px;
+
 
     text-decoration: none;
     font-weight: 600;
@@ -1060,16 +1161,27 @@ body.chat-open {
         transform 0.35s ease;
 }
 
+/* Brilho deslizante */
 .hero-button::before {
     content: "";
     position: absolute;
     inset: 0;
     background: linear-gradient(120deg,
             transparent 30%,
-            rgba(161, 230, 173, 0.35),
+            rgba(255, 255, 255, 0.35),
             transparent 70%);
     transform: translateX(-120%);
     transition: transform 0.7s ease;
+}
+
+/* Efeito pulsar */
+.hero-button::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 999px;
+    box-shadow: 0 0 0 rgba(0, 0, 0, 0);
+    transition: box-shadow 0.4s ease;
 }
 
 .hero-button:hover {
@@ -1079,13 +1191,33 @@ body.chat-open {
     box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25);
 }
 
+/* Brilho animado no hover */
 .hero-button:hover::before {
     transform: translateX(50%);
 }
 
-/* ==== SEÇÃO DE PARA QUEM É? ====*/
+/* Pulsar leve no hover */
+.hero-button:hover::after {
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3), 0 0 40px rgba(255, 255, 255, 0.2);
+}
 
-/* ===== SEÇÃO ===== */
+/* Animação contínua de brilho */
+@keyframes shine {
+    0% {
+        transform: translateX(-120%);
+    }
+
+    100% {
+        transform: translateX(120%);
+    }
+}
+
+.hero-button::before {
+    animation: shine 2s infinite;
+}
+
+
+/* ==== SEÇÃO DE PARA QUEM É? ====*/
 .container-box {
     padding: 80px 6%;
     background: linear-gradient(180deg,
@@ -1135,10 +1267,15 @@ body.chat-open {
 
 /* ===== GRID ===== */
 .cards-grid {
-    display: grid !important;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
     gap: 32px;
-
+    max-width: 1280px;
+    /* trava a largura máxima */
+    margin: 0 auto;
+    /* centraliza */
+    padding: 0 24px;
+    /* respiro lateral */
 }
 
 .card-quem {
@@ -2538,7 +2675,7 @@ RESPONSIVIDADE DO SITE
     }
 
     .chatbot-tooltip {
-     font-size: 1.3em;
+        font-size: 1.3em;
     }
 
     .nav-dropdown {
@@ -2570,19 +2707,25 @@ RESPONSIVIDADE DO SITE
     /* ===== DROPDOWN ===== */
     .dropdown-menu {
         display: block;
-        overflow: hidden;
+        overflow-x: hidden;
+        /* Evita scroll lateral */
+        overflow-y: auto;
+        /* 🚀 Habilita o scroll vertical se necessário */
         max-height: 0;
-        /* 🔥 fechado = ZERO espaço */
+
         padding-left: 12px;
         border-left: 2px solid var(--verde-principal);
         margin-bottom: 10px;
-
         transition: max-height 0.3s ease;
+
+        /* Estilização opcional para a barra de scroll ficar fina e elegante */
+        scrollbar-width: thin;
+        scrollbar-color: var(--verde-principal) transparent;
     }
 
     .nav-dropdown.active .dropdown-menu {
-        max-height: 300px;
-        margin-top: 0px;
+        max-height: 230px;
+        margin-top: 10px;
     }
 
     .dropdown-menu li a {
@@ -2648,6 +2791,12 @@ RESPONSIVIDADE DO SITE
         background-position: 90% center !important;
     }
 
+    .cards-grid {
+        display: grid !important;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 32px;
+
+    }
 
     /* PARA QUEM É */
     .quem-header h2 {
@@ -2860,7 +3009,7 @@ RESPONSIVIDADE DO SITE
 
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
 
     .chatbot {
         width: 300px;
@@ -2881,7 +3030,7 @@ RESPONSIVIDADE DO SITE
     }
 
     .chatbot-tooltip {
-     font-size: 1.2em;
+        font-size: 1.2em;
     }
 
     .header-nav ul {
@@ -2899,18 +3048,30 @@ RESPONSIVIDADE DO SITE
         margin-bottom: 1px;
     }
 
+    /* ===== DROPDOWN ===== */
     .dropdown-menu {
-        padding-left: 8px;
+        display: block;
+        overflow-x: hidden;
+        /* Evita scroll lateral */
+        overflow-y: auto;
+        /* 🚀 Habilita o scroll vertical se necessário */
+        max-height: 0;
+
+        padding-left: 12px;
+        border-left: 2px solid var(--verde-principal);
+        margin-bottom: 10px;
+        transition: max-height 0.3s ease;
+
+        /* Estilização opcional para a barra de scroll ficar fina e elegante */
+        scrollbar-width: thin;
+        scrollbar-color: var(--verde-principal) transparent;
     }
 
-    .dropdown-menu li a {
-        padding: 6px 0;
+    .nav-dropdown.active .dropdown-menu {
+        max-height: 145px;
+        margin-top: 10px;
     }
 
-
-    .dropdown-menu li a {
-        font-size: 0.85rem;
-    }
 
     :root {
         --header-height: 190px;
@@ -2928,6 +3089,7 @@ RESPONSIVIDADE DO SITE
     }
 
     .hero-content p {
+        max-width: 330px;
         font-size: 1.4rem;
     }
 
@@ -2964,20 +3126,22 @@ RESPONSIVIDADE DO SITE
         transition: max-height 0.6s ease;
     }
 
-    /* altura inicial (4 cards) */
-    .cards-grid {
-        max-height: 744px;
-        /* suficiente para 4 cards */
-    }
-
     /* mostra apenas os 4 primeiros cards */
     .card-quem {
         display: none;
         margin-top: 10px;
     }
 
-    .card-quem:nth-child(-n+4) {
+    .quem-header h2 {
+        font-size: 2.2em;
+    }
+
+    .card-quem:nth-child(-n+3) {
         display: block;
+    }
+
+    .quem-header p {
+        font-size: 1.2em;
     }
 
     /* cards extras começam invisíveis */
@@ -3023,12 +3187,27 @@ RESPONSIVIDADE DO SITE
         padding-left: 44px;
     }
 
+    .timeline-header h2 {
+        font-size: 2.2em;
+    }
+
+    .timeline-header p {
+        font-size: 1.4em;
+    }
+
     .timeline-step .content h3 {
-        font-size: 1.4rem;
+        font-size: 1.6rem;
+        margin-left: 20px;
     }
 
     .timeline-step .content p {
         font-size: 1.1rem;
+        margin-left: 20px;
+    }
+
+    .timeline-step .dot {
+        margin-left: 10px;
+        width: 10%;
     }
 
     /* SERVIÇOS */
@@ -3147,6 +3326,10 @@ RESPONSIVIDADE DO SITE
         border-radius: 22px;
     }
 
+    .footer {
+        display: none;
+    }
+
     .footer-container {
         grid-template-columns: 1fr;
         gap: 48px;
@@ -3261,23 +3444,31 @@ RESPONSIVIDADE DO SITE
     }
 
     .chatbot-tooltip {
-     font-size: 1em;
+        font-size: 1em;
     }
 
+    /* ===== DROPDOWN ===== */
     .dropdown-menu {
+        display: block;
+        overflow-x: hidden;
+        /* Evita scroll lateral */
+        overflow-y: auto;
+        /* 🚀 Habilita o scroll vertical se necessário */
+        max-height: 0;
+
         padding-left: 12px;
+        border-left: 2px solid var(--verde-principal);
+        margin-bottom: 10px;
+        transition: max-height 0.3s ease;
+
+        /* Estilização opcional para a barra de scroll ficar fina e elegante */
+        scrollbar-width: thin;
+        scrollbar-color: var(--verde-principal) transparent;
     }
 
-    .dropdown-menu li a {
-        font-size: 0.75rem;
-    }
-
-    .dropdown-arrow a {
-        font-size: 0.5em;
-    }
-
-    .dropdown-arrow {
-        font-size: 0.6em;
+    .nav-dropdown.active .dropdown-menu {
+        max-height: 145px;
+        margin-top: 10px;
     }
 
     :root {
@@ -3295,6 +3486,7 @@ RESPONSIVIDADE DO SITE
     }
 
     .hero-content p {
+        max-width: 280px;
         font-size: 1.25rem;
     }
 
@@ -3349,9 +3541,19 @@ RESPONSIVIDADE DO SITE
         font-size: 1rem;
     }
 
-    .cards-grid {
-        max-height: 779px;
-        /* suficiente para 4 cards */
+    /* Esconde todos */
+    .cards-grid .card {
+        display: none;
+    }
+
+    /* Mostra apenas os 3 primeiros */
+    .cards-grid .card:nth-child(-n+3) {
+        display: block;
+    }
+
+    /* Quando expandido, mostra tudo */
+    .cards-grid.expandido .card {
+        display: block;
     }
 
     .button-quem {
@@ -3643,16 +3845,28 @@ RESPONSIVIDADE DO SITE
         height: 42px;
     }
 
-    .dropdown-menu li a {
-        font-size: 0.7rem;
-    }
-
-    .nav-dropdown>a {
-        font-size: 0.55rem;
-    }
-
+    /* ===== DROPDOWN ===== */
     .dropdown-menu {
-        padding-left: 10px;
+        display: block;
+        overflow-x: hidden;
+        /* Evita scroll lateral */
+        overflow-y: auto;
+        /* 🚀 Habilita o scroll vertical se necessário */
+        max-height: 0;
+
+        padding-left: 12px;
+        border-left: 2px solid var(--verde-principal);
+        margin-bottom: 10px;
+        transition: max-height 0.3s ease;
+
+        /* Estilização opcional para a barra de scroll ficar fina e elegante */
+        scrollbar-width: thin;
+        scrollbar-color: var(--verde-principal) transparent;
+    }
+
+    .nav-dropdown.active .dropdown-menu {
+        max-height: 145px;
+        margin-top: 10px;
     }
 
     :root {
@@ -3664,6 +3878,7 @@ RESPONSIVIDADE DO SITE
     }
 
     .hero-content p {
+
         font-size: 1.15rem;
     }
 
@@ -3692,10 +3907,21 @@ RESPONSIVIDADE DO SITE
         padding: 26px 18px;
     }
 
-    .cards-grid {
-        max-height: 724px;
-        /* suficiente para 4 cards */
+    /* Esconde todos */
+    .cards-grid .card {
+        display: none;
     }
+
+    /* Mostra apenas os 3 primeiros */
+    .cards-grid .card:nth-child(-n+3) {
+        display: block;
+    }
+
+    /* Quando expandido, mostra tudo */
+    .cards-grid.expandido .card {
+        display: block;
+    }
+
 
     .timeline-step .content h3 {
         font-size: 1.25rem;

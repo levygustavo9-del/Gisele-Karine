@@ -3369,34 +3369,41 @@ RESPONSIVIDADE DO SITE
         text-align: center;
     }
 
-    .quem-sou-eu,
-    .missao {
-        padding: 70px 6%;
-    }
-
     .texto-quem h2,
     .texto-missao h2 {
-        font-size: 38px;
+        font-size: 32px;
     }
 
     .texto-missao h2::after {
-        margin-top: 50px;
+        margin-top: 60px;
     }
 
     .texto-quem p,
     .texto-missao p {
-        font-size: 18px;
+        font-size: 16px;
+        line-height: 1.6;
+    }
+
+    .dados-quem,
+    .dados-missao {
+        flex-direction: column;
+        gap: 18px;
+    }
+
+    .dados-missao strong {
+        font-size: 34px;
     }
 
     .foto-quem,
     .foto-missao {
-        height: 580px;
-        border-radius: 18px;
+        height: 380px;
+        max-width: 100%;
     }
 
+
     .chat-float {
-        width: 70px;
-        height: 70px;
+        width: 50px;
+        height: 50px;
         bottom: 24px;
         right: 24px;
     }

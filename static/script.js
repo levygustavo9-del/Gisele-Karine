@@ -859,3 +859,55 @@ reveals.forEach(el => revealObserver.observe(el));
 if (reveals.length > 0) {
     reveals.forEach(el => revealObserver.observe(el));
 }
+
+/* ========= ROLAGEM SUAVE ========= */
+let targetScrollY = 0;
+let currentScrollY = 0;
+const smoothness = 0.1; // Quanto menor, mais suave (0.05 a 0.15)
+let isAnimating = false;
+
+function smoothScrollAnimation() {
+    currentScrollY += (targetScrollY - currentScrollY) * smoothness;
+    window.scrollTo(0, currentScrollY);
+
+    if (Math.abs(targetScrollY - currentScrollY) > 0.5) {
+        requestAnimationFrame(smoothScrollAnimation);
+    } else {
+        currentScrollY = targetScrollY;
+        isAnimating = false;
+    }
+}
+
+window.addEventListener('wheel', (e) => {
+    e.preventDefault();
+
+    const scrollSpeed = 50; // Velocidade do scroll
+    targetScrollY = Math.max(0, Math.min(targetScrollY + (e.deltaY > 0 ? scrollSpeed : -scrollSpeed),
+        document.documentElement.scrollHeight - window.innerHeight));
+
+    if (!isAnimating) {
+        isAnimating = true;
+        requestAnimationFrame(smoothScrollAnimation);
+    }
+}, { passive: false });
+
+// Para touchpad/mobile
+let lastTouchY = 0;
+window.addEventListener('touchstart', (e) => {
+    lastTouchY = e.touches[0].clientY;
+}, { passive: true });
+
+window.addEventListener('touchmove', (e) => {
+    const currentY = e.touches[0].clientY;
+    const diff = lastTouchY - currentY;
+
+    targetScrollY = Math.max(0, Math.min(targetScrollY + diff,
+        document.documentElement.scrollHeight - window.innerHeight));
+
+    lastTouchY = currentY;
+
+    if (!isAnimating) {
+        isAnimating = true;
+        requestAnimationFrame(smoothScrollAnimation);
+    }
+}, { passive: true });

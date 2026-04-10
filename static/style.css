@@ -1826,7 +1826,7 @@ body.chat-open {
 }
 
 .linha-diferenciais {
-    width: 70%;
+    width: 45%;
     height: 3px;
     margin: 24px auto 40px;
     background: linear-gradient(90deg,
@@ -2296,7 +2296,7 @@ body.chat-open {
 
 .quem-sou-eu {
     padding: 60px 6%;
-    margin-top: 12%;
+    margin-top: 11%;
     background: #f7f9f8;
 }
 
@@ -2467,7 +2467,7 @@ body.chat-open {
 .texto-missao h2::after {
     content: '';
     position: absolute;
-    right: 30%;
+    right: 62%;
     margin-top: 85px;
     width: 40%;
     height: 3px;

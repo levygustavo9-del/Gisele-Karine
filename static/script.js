@@ -1,6 +1,13 @@
 let menuOpen = false;
 let isUserInteracting = false;
 
+window.addEventListener("load", () => {
+    const heroSection = document.querySelector(".hero-section");
+    if (heroSection) {
+        heroSection.classList.add("loaded");
+    }
+});
+
 
 document.addEventListener('DOMContentLoaded', () => {
     const menuToggle = document.querySelector(".menu-toggle");
@@ -861,10 +868,35 @@ if (reveals.length > 0) {
 }
 
 /* ========= ROLAGEM SUAVE ========= */
-let targetScrollY = 0;
-let currentScrollY = 0;
+let targetScrollY = window.scrollY;
+let currentScrollY = window.scrollY;
 const smoothness = 0.1; // Quanto menor, mais suave (0.05 a 0.15)
 let isAnimating = false;
+
+function clampScroll(value) {
+    return Math.max(0, Math.min(value, document.documentElement.scrollHeight - window.innerHeight));
+}
+
+function syncScrollState() {
+    const scrollY = window.scrollY;
+    currentScrollY = scrollY;
+    targetScrollY = scrollY;
+}
+
+function isTouchpadScroll(event) {
+    const absDeltaX = Math.abs(event.deltaX);
+    const absDeltaY = Math.abs(event.deltaY);
+
+    if (absDeltaX > 0) {
+        return true;
+    }
+
+    if (event.deltaMode === WheelEvent.DOM_DELTA_PIXEL) {
+        return absDeltaY < 80 || !Number.isInteger(absDeltaY / 100);
+    }
+
+    return false;
+}
 
 function smoothScrollAnimation() {
     currentScrollY += (targetScrollY - currentScrollY) * smoothness;
@@ -879,17 +911,28 @@ function smoothScrollAnimation() {
 }
 
 window.addEventListener('wheel', (e) => {
+    if (isTouchpadScroll(e)) {
+        syncScrollState();
+        isAnimating = false;
+        return;
+    }
+
     e.preventDefault();
 
-    const scrollSpeed = 50; // Velocidade do scroll
-    targetScrollY = Math.max(0, Math.min(targetScrollY + (e.deltaY > 0 ? scrollSpeed : -scrollSpeed),
-        document.documentElement.scrollHeight - window.innerHeight));
+    const scrollDelta = Math.sign(e.deltaY) * Math.min(Math.max(Math.abs(e.deltaY), 40), 120);
+    targetScrollY = clampScroll(targetScrollY + scrollDelta);
 
     if (!isAnimating) {
         isAnimating = true;
         requestAnimationFrame(smoothScrollAnimation);
     }
 }, { passive: false });
+
+window.addEventListener('scroll', () => {
+    if (!isAnimating) {
+        syncScrollState();
+    }
+}, { passive: true });
 
 // Para touchpad/mobile
 let lastTouchY = 0;
@@ -901,8 +944,7 @@ window.addEventListener('touchmove', (e) => {
     const currentY = e.touches[0].clientY;
     const diff = lastTouchY - currentY;
 
-    targetScrollY = Math.max(0, Math.min(targetScrollY + diff,
-        document.documentElement.scrollHeight - window.innerHeight));
+    targetScrollY = clampScroll(targetScrollY + diff);
 
     lastTouchY = currentY;
 

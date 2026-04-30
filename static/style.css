@@ -1058,10 +1058,13 @@ body.chat-open {
 .hero-section {
     position: relative;
     width: 100%;
-    min-height: 80vh;
+    min-height: 100vh;
+    height: 100vh;
 
     display: flex;
     align-items: center;
+    overflow: hidden;
+    isolation: isolate;
 
     padding-left: 6%;
     padding-top: calc(var(--header-height) - 10px);
@@ -1071,11 +1074,33 @@ body.chat-open {
             rgba(0, 0, 0, 0.65),
             rgba(0, 0, 0, 0.35),
             rgba(0, 0, 0, 0.1)),
-        url("imgs/bg-hero.png");
+        radial-gradient(circle at 78% 32%, rgba(173, 221, 182, 0.45), transparent 18%),
+        radial-gradient(circle at 72% 48%, rgba(109, 179, 126, 0.3), transparent 24%),
+        linear-gradient(135deg, #839f82 0%, #a5b99a 28%, #c8b197 56%, #6b7c63 100%);
 
     background-repeat: no-repeat;
     background-size: cover;
+    background-position: center;
+    background-color: #7f8e79;
+}
+
+.hero-section::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url("imgs/bg-hero.png");
+    background-repeat: no-repeat;
+    background-size: cover;
     background-position: right center;
+    opacity: 0;
+    transform: scale(1.04);
+    transition: opacity 0.6s ease, transform 1s ease;
+    z-index: 0;
+}
+
+.hero-section.loaded::after {
+    opacity: 1;
+    transform: scale(1);
 }
 
 /* Overlay escuro premium */
@@ -1096,6 +1121,7 @@ body.chat-open {
 .hero-content {
     margin-top: 0px;
     max-width: 600px;
+    position: relative;
     z-index: 2;
 }
 
@@ -1626,6 +1652,9 @@ body.chat-open {
 .service-card img {
     width: 100%;
     max-width: 380px;
+    display: block;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
     border-radius: 16px;
     margin-bottom: 20px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
@@ -2797,16 +2826,8 @@ RESPONSIVIDADE DO SITE
         background-position: 70% center;
     }
 
-    .hero-section {
-        background-image:
-            linear-gradient(to right,
-                rgba(0, 0, 0, 0.65),
-                rgba(0, 0, 0, 0.35),
-                rgba(0, 0, 0, 0.1)),
-            url("imgs/hero-img.png");
-
-        background-repeat: no-repeat;
-        background-size: cover;
+    .hero-section::after {
+        background-image: url("imgs/hero-img.png");
         background-position: 90% center !important;
     }
 
@@ -3117,16 +3138,8 @@ RESPONSIVIDADE DO SITE
         font-size: 0.85rem;
     }
 
-    .hero-section {
-        background-image:
-            linear-gradient(to right,
-                rgba(0, 0, 0, 0.65),
-                rgba(0, 0, 0, 0.35),
-                rgba(0, 0, 0, 0.1)),
-            url("imgs/hero-img.png");
-
-        background-repeat: no-repeat;
-        background-size: cover;
+    .hero-section::after {
+        background-image: url("imgs/hero-img.png");
         background-position: 90% center !important;
     }
 
@@ -3532,17 +3545,9 @@ RESPONSIVIDADE DO SITE
         margin: 1px 0 1px;
     }
 
-    .hero-section {
-        background-image:
-            linear-gradient(to right,
-                rgba(0, 0, 0, 0.65),
-                rgba(0, 0, 0, 0.35),
-                rgba(0, 0, 0, 0.1)),
-            url("imgs/hero-img.png");
-
-        background-repeat: no-repeat;
-        background-size: cover;
-        background-position: 90% center;
+    .hero-section::after {
+        background-image: url("imgs/hero-mobile.png");
+        background-position: 86% center;
     }
 
     /* PARA QUEM É */

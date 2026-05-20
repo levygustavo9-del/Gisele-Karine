@@ -40,15 +40,6 @@ body {
 
 /* ========  ANIMAÇÃO SUAVE ===========*/
 
-.reveal {
-    opacity: 0;
-    transform: translateY(40px);
-    transition:
-        opacity 0.8s ease,
-        transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
-    will-change: transform, opacity;
-}
-
 .reveal.active {
     opacity: 1;
     transform: translateY(0);
@@ -155,7 +146,7 @@ body {
 }
 
 .header-logo img {
-    width: 180px;
+    width: 130px;
 }
 
 /* MENU */
@@ -1171,7 +1162,7 @@ body.chat-open {
 
     padding: 14px 48px;
     border-radius: 999px;
-    margin-bottom: 50px;
+    margin-bottom: 100px;
 
 
     text-decoration: none;
